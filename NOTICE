@@ -1,0 +1,71 @@
+ÜÇÜNCÜ TARAF KAYNAKLAR VE LİSANSLAR
+════════════════════════════════════════════════════════════════════════
+
+Bu depo, "Hanzi Defteri · 字迹" adlı Çince öğrenme uygulamasının içine
+giren ve BULAŞICI (share-alike) lisans taşıyan iki veri dosyasını
+yayınlar. Amacı tek: o lisansların "türetilmiş hâli erişilebilir olsun"
+şartını karşılamak.
+
+Uygulamanın kendi kaynak kodu bu depoda DEĞİL ve burada yayınlanan
+lisanslar ona bulaşmıyor — Arphic Public License bunu kendi metninde
+söylüyor: "If identifiable sections of that work are not derived from
+the Font, and can be reasonably considered independent and separate
+works in themselves, then this License and its terms, do not apply to
+those sections when you distribute them as separate works."
+
+
+────────────────────────────────────────────────────────────────────────
+veri/strokes.js  —  ARPHIC PUBLIC LICENSE
+────────────────────────────────────────────────────────────────────────
+
+  Ne:        1.187 Çince karakterin vuruş verisi — vuruş başına bir SVG
+             yol dizgesi ve bir "median" (orta çizgi) nokta dizisi.
+  Kaynak:    skishore/makemeahanzi  ·  graphics.txt
+             https://github.com/skishore/makemeahanzi
+  Üstkaynak: Arphic PL KaitiM GB ve Arphic PL UKai TrueType fontları
+             Copyright (C) 1999 Arphic Technology Co., Ltd.
+  Lisans:    Arphic Public License  ·  licenses/ARPHICPL.TXT
+             (§1 gereği DEĞİŞTİRİLMEDEN taşınıyor)
+
+  ⚠ KAYNAK TESPİTİ BİÇİM EŞLEŞMESİNE DAYANIYOR. Dosyanın şeması
+  (karakter → {strokes[], medians[]}, 900 birimlik tuval) makemeahanzi
+  `graphics.txt` biçimiyle birebir. Ancak elimizdeki klonda
+  `graphics.txt` bulunmadığı için bayt bayt doğrulama YAPILMADI. Bunu
+  kesin bir tespit değil, güçlü bir tespit olarak yazıyoruz; Arphic PL
+  koşullarına uymak da bu belirsizliğin güvenli tarafında durmak
+  demek.
+
+  APL §2(a) — NASIL VE NE ZAMAN DEĞİŞTİRİLDİ: aşağıda, README.md.
+
+
+────────────────────────────────────────────────────────────────────────
+veri/en.js  —  CC BY-SA 4.0 (+ kısmen LGPL 3.0)
+────────────────────────────────────────────────────────────────────────
+
+  Ne:        6.116 Çince kelimenin İngilizce anlamı.
+  Lisans:    CC BY-SA 4.0  ·  licenses/CC-BY-SA-4.0.txt
+             https://creativecommons.org/licenses/by-sa/4.0/
+
+  ⚠ DOSYA İKİ KAYNAK KARIŞTIRIYOR ve bunu gizlemiyoruz:
+
+  · Kayıtların büyük çoğunluğu CC-CEDICT'ten geliyor
+    (drkameleon/complete-hsk-vocabulary derlemesi üzerinden; o deponun
+    kendi MIT lisansı derlemesini kapsıyor, altındaki CC-CEDICT
+    verisini değil).
+    CC-CEDICT  ·  https://www.mdbg.net/chinese/dictionary?page=cc-cedict
+    Lisans: CC BY-SA 4.0
+
+  · 582 tek karakterlik kayıt makemeahanzi `dictionary.txt`ten geldi
+    (Unihan + CJKlib türevi).
+    Lisans: LGPL 3.0  ·  licenses/LGPL-3.0-ve-Unihan.txt
+    Kaynak notu: licenses/makemeahanzi-COPYING.txt
+
+  Bu iki lisans aynı dosyada bulunduğu için dosyanın TAMAMI, ikisinden
+  daha kısıtlayıcı olan koşullara uyularak dağıtılıyor. Ayrıştırılmış
+  hâli isteyen olursa üreteç ana depoda (`scripts/en-dizini.mjs`) ve
+  hangi kaydın hangi kaynaktan geldiği oradan yeniden üretilebilir.
+
+  ⚠ ÇEVİRİ DEĞİL, SEÇİM VE SADELEŞTİRME. Anlamlar İngilizce'den
+  İngilizce'ye alındı; yaptığımız iş okunuşa göre doğru anlamı seçmek,
+  sözlükbilim notlarını ("variant of…", "bound form…") elemek ve
+  kısaltmak. Yani türev eser, yeni eser değil.
