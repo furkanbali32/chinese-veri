@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hanzı Defteri — Gizlilik Politikası</title>
+<meta name="description" content="Hanzı Defteri uygulamasının gizlilik politikası: hangi veriler toplanır, nereye gider, nasıl silinir.">
+<style>
+  :root { color-scheme: light dark; --mur:#1d1d1f; --mur2:#5c5c62; --zemin:#f7f7f8; --yuzey:#ffffff; --cizgi:#e4e4e7; --vurgu:#ab4971; }
+  @media (prefers-color-scheme: dark) { :root { --mur:rgba(255,255,255,.92); --mur2:rgba(255,255,255,.62); --zemin:#000; --yuzey:#101010; --cizgi:rgba(255,255,255,.10); --vurgu:#dd99b5; } }
+  body { margin:0; background:var(--zemin); color:var(--mur); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 28px; line-height:1.2; margin: 0 0 4px; letter-spacing:-.3px; }
+  .alt { color: var(--mur2); margin: 0 0 28px; font-size: 14px; }
+  h2 { font-size: 18px; margin: 32px 0 8px; }
+  p, li { color: var(--mur); }
+  .tablo { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 8px 0 4px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 8px; border-bottom: 1px solid var(--cizgi); }
+  th { color: var(--mur2); font-weight: 600; font-size: 12px; letter-spacing: .4px; text-transform: uppercase; }
+  code { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 4px; padding: 1px 5px; }
+  a { color: var(--vurgu); }
+  .kutu { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 12px; padding: 14px 16px; margin: 12px 0; }
+  .en { border-top: 1px solid var(--cizgi); margin-top: 48px; padding-top: 24px; }
+  .not { color: var(--mur2); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Hanzı Defteri — Gizlilik Politikası</h1>
+  <p class="alt">Yürürlük tarihi: 15 Eylül 2026 · Sürüm 1.1 · <a href="#en">English below</a></p>
+
+  <p>Hanzı Defteri, Çince karakter ve kelime öğrenmek için bir defter uygulamasıdır. Bu sayfa, uygulamanın hangi verileri işlediğini, bunların nereye gittiğini ve nasıl silindiğini eksiksiz anlatır. Burada yazmayan hiçbir veri toplanmaz.</p>
+
+  <h2>1. Kısa özet</h2>
+  <div class="kutu">
+    <ul style="margin:0; padding-left:20px;">
+      <li>Öğrenme verileriniz <strong>telefonunuzda</strong> durur. Hesap kullanmazsanız uygulama sunucuya hiçbir şey göndermez.</li>
+      <li><strong>Google ile giriş yaparsanız</strong> defteriniz hesabınıza bağlanır ve cihazlarınız arasında <strong>otomatik olarak eşitlenir</strong>. Bu durumda Google'dan e-posta adresiniz, adınız ve profil fotoğrafınızın bağlantısı alınır.</li>
+      <li>Telefon numarası, konum, rehber, fotoğraf, kamera ve mikrofon verisi <strong>istenmez ve toplanmaz</strong>.</li>
+      <li>Analitik, reklam kimliği, çökme raporu ve bildirim <strong>yoktur</strong>. Uygulamanın tek izni internettir.</li>
+      <li>Yapay zekâ seslendirmesini kendi OpenRouter anahtarınızla açarsanız, seslendirilen metin <strong>OpenRouter</strong>'a gönderilir.</li>
+      <li>Hesabınızı ve sunucudaki defterinizi <strong>uygulama içinden</strong> silebilirsiniz.</li>
+    </ul>
+  </div>
+
+  <h2>2. İşlenen veriler</h2>
+  <div class="tablo">
+  <table>
+    <thead><tr><th>Veri</th><th>Nerede tutulur</th><th>Sunucuya gider mi</th><th>Amaç</th></tr></thead>
+    <tbody>
+      <tr><td>Hesap kimliği (rastgele bir kullanıcı numarası)</td><td>Telefon ve Supabase</td><td>Evet — yalnız hesap kullanırsanız (Google girişi ya da <em>Yedekle</em>)</td><td>Defteri sahibine bağlamak</td></tr>
+      <tr><td>Google hesap bilgileri: e-posta adresi, ad, profil fotoğrafı bağlantısı</td><td>Supabase kimlik kaydı (telefonda saklanmaz)</td><td>Evet — yalnız Google ile giriş yaparsanız</td><td>Aynı hesapla başka bir cihazda giriş yapabilmeniz</td></tr>
+      <tr><td>Cihaz kimliği (uygulamanın ürettiği rastgele değer; donanım kimliği değildir)</td><td>Telefon ve sunucudaki defter</td><td>Yalnız hesap kullanırsanız</td><td>Cihazları ayırt etmek, çalışma süresini iki kez saymamak</td></tr>
+      <tr><td>Öğrenme ilerlemesi: öğrendiğiniz karakter ve kelimeler, notlarınız, öğrenme tarihleri, kart tekrar geçmişi, yazı hafızası ve kalem ayarı, kelime ağındaki işaretleriniz</td><td>Telefon; hesap varsa sunucudaki defter</td><td>Yalnız hesap kullanırsanız</td><td>Yedekleme ve cihazlar arası eşitleme</td></tr>
+      <tr><td>Çalışma günlüğü (günlük süreler, çalışma oturumları)</td><td>Telefon; hesap varsa sunucudaki defter</td><td>Yalnız hesap kullanırsanız</td><td>Yedekleme ve eşitleme</td></tr>
+      <tr><td>Eklediğiniz kelimeler</td><td>Telefon; hesap varsa sunucudaki defter</td><td>Yalnız hesap kullanırsanız</td><td>Yedekleme ve eşitleme</td></tr>
+      <tr><td>İki çalışma tercihi: pinyin gösterimi ve süre birimi</td><td>Telefon; hesap varsa sunucudaki defter</td><td>Yalnız hesap kullanırsanız</td><td>Tercihin öbür cihazda da geçerli olması</td></tr>
+      <tr><td>Diğer tercihler: tema, dil, fırça ayarı, ses ayarları</td><td>Yalnız telefon</td><td><strong>Hayır</strong></td><td>Uygulamanın görünümü ve davranışı</td></tr>
+      <tr><td>OpenRouter API anahtarınız</td><td>Yalnız telefon</td><td>Yalnız OpenRouter'a, isteğinizin kimliği olarak. Bize gönderilmez, yedeğe girmez.</td><td>Seslendirme</td></tr>
+      <tr><td>Seslendirilen metin (karakter, kelime, cümle)</td><td>Üretilen ses telefonda saklanır</td><td>OpenRouter'a — yalnız siz dinlediğinizde ve o metin daha önce seslendirilmemişse</td><td>Sesi üretmek</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="not">Toplanmayanlar: telefon numarası, konum, rehber, fotoğraf, kamera, mikrofon, analitik, reklam kimliği, çökme raporu. Uygulama bildirim göndermez.</p>
+
+  <h2>3. Verilerin gittiği yerler</h2>
+  <p>Uygulama yalnız aşağıdaki hizmetlerle konuşur ve hepsi isteğe bağlıdır:</p>
+  <ul>
+    <li><strong>Supabase</strong> (<code>gjaxiiyyqvkrfndurizn.supabase.co</code>) — hesap ve defter. Defteriniz tek bir kayıt olarak saklanır; her kullanıcı yalnız kendi kaydını okuyup yazabilir.
+      <ul>
+        <li><em>Google ile giriş yapmadıysanız:</em> sunucuya yalnız Ayarlar → Defter'de <em>Yedekle</em>, <em>Geri yükle</em> ya da <em>Sil</em> dediğinizde bağlanılır.</li>
+        <li><em>Google ile giriş yaptıysanız:</em> defteriniz uygulama açılınca, öne gelince, arka plana geçerken ve bir değişiklikten kısa süre sonra kendiliğinden gönderilir ve alınır. Uygulama açıkken, başka bir cihazınızda yapılan değişikliği haber almak için sunucuyla bir bağlantı açık tutulur.</li>
+      </ul>
+    </li>
+    <li><strong>Google</strong> — yalnız Google ile giriş yaparken. Giriş, telefonunuzun tarayıcısında Google'ın kendi sayfasında yapılır ve Google'ın gizlilik politikasına tabidir. Uygulama Google'dan yalnız temel profil bilgilerini (e-posta, ad, profil fotoğrafı) alır; Gmail, Drive, rehber gibi hiçbir şeye erişim istemez. Parolanız uygulamaya hiçbir zaman gelmez.</li>
+    <li><strong>OpenRouter</strong> (<code>openrouter.ai</code>) — yapay zekâ seslendirmesi. Yalnız kendi API anahtarınızı girdiğinizde ve bir metni dinlediğinizde kullanılır. OpenRouter metni seçtiğiniz ses modelinin sağlayıcısına (örneğin MiniMax, Google, xAI ya da OpenAI) iletir. Gönderilen metne OpenRouter'ın ve o sağlayıcının gizlilik politikası uygulanır. Anahtar girmezseniz seslendirme telefonunuzun kendi konuşma motoruyla yapılır ve metin uygulama tarafından hiçbir yere gönderilmez.</li>
+  </ul>
+  <p>Bütün bağlantılar şifrelidir (HTTPS). Ayarlar'daki lisans ve bu politika bağlantıları yalnız dokunduğunuzda tarayıcıda açılır. Uygulama başka hiçbir sunucuya bağlanmaz.</p>
+
+  <h2>4. Saklama süresi</h2>
+  <ul>
+    <li>Telefonunuzdaki veriler, uygulamayı kaldırana kadar durur.</li>
+    <li>Sunucudaki defteriniz ve hesap kaydınız, siz silene ya da silinmesini isteyene kadar durur. Belirli bir süre sonunda kendiliğinden silinmez.</li>
+    <li>Önce Google'sız yedek alıp sonra Google ile giriş yaptıysanız, defteriniz Google hesabınıza taşınır; eski Google'sız yedeğin kopyası sunucuda kalır. Silinmesini aşağıdaki adrese yazarak isteyebilirsiniz.</li>
+    <li>Seslendirilen metin sunucuda saklanmaz; üretilen ses, tekrar ücret ödememeniz için telefonunuzda saklanır.</li>
+  </ul>
+
+  <h2>5. Silme</h2>
+  <p><strong>Uygulama içinden:</strong> Ayarlar → Defter → <em>Hesabı ve yedeği sil</em>. Bu işlem sunucudaki defterinizi, hesap kaydınızı (Google ile girdiyseniz e-posta adresiniz, adınız ve fotoğraf bağlantınız dahil) ve telefonunuzdaki oturumu hemen ve kalıcı olarak siler.</p>
+  <p><strong>E-postayla:</strong> uygulamaya artık erişiminiz yoksa ya da eski Google'sız yedeğinizin de silinmesini istiyorsanız aşağıdaki adrese, mümkünse giriş yaptığınız Google e-posta adresinden yazın; hesap kaydınız ve sunucudaki kopyalarınız en geç 30 gün içinde silinir.</p>
+  <p>Telefonunuzdaki öğrenme verileri kasıtlı olarak silinmez — emeğiniz size aittir; onu silmenin yolu uygulamayı kaldırmaktır.</p>
+
+  <h2>6. Çocuklar</h2>
+  <p>Uygulama çocuklara yönelik değildir ve yaş bilgisi istemez. Google ile giriş, Google'ın kendi yaş kurallarına tabidir.</p>
+
+  <h2>7. Değişiklikler</h2>
+  <p>Bu politika değişirse yürürlük tarihi ve sürüm numarası güncellenir; önemli değişiklikler uygulama içinde duyurulur.</p>
+
+  <h2>8. İletişim</h2>
+  <p>Veri sorumlusu: Hanzı Defteri geliştiricisi. Sorular ve silme talepleri için: <a href="mailto:furkanbali885@gmail.com">furkanbali885@gmail.com</a></p>
+
+  <section class="en" id="en">
+    <h1 style="font-size:22px;">Privacy Policy (English)</h1>
+    <p class="alt">Effective 15 September 2026 · v1.1</p>
+    <p>Hanzı Defteri is a notebook for learning Chinese characters and words. Your learning data lives <strong>on your phone</strong>. If you do not use an account, the app sends nothing to a server.</p>
+    <p><strong>Accounts:</strong> if you <strong>sign in with Google</strong>, your notebook is linked to your account and <strong>synced automatically</strong> between your devices: when the app opens, comes to the foreground, goes to the background, and shortly after each change; while the app is open it keeps a connection to the server to hear about changes made on your other devices. Google sign-in happens on Google's own page in your browser and gives the app only your basic profile: email address, name and profile photo link. The app never sees your password and requests no access to Gmail, Drive or contacts. Without Google, the server is contacted only when you tap <em>Back up</em>, <em>Restore</em> or <em>Delete</em>.</p>
+    <p><strong>Data processed:</strong> an account ID and an app-generated device ID (only if you use an account); your Google email, name and profile photo link (only with Google sign-in, stored in the Supabase identity record, not on the phone); your learning progress (learned characters and words, notes, learning dates, card review history, writing memory and pen calibration, word-network marks), study journal, custom words, and two study preferences (pinyin display, time unit) — in the server notebook only if you use an account. Theme, language, brush and voice settings stay on the phone. If you use AI text-to-speech with your own OpenRouter API key, the text being spoken is sent to OpenRouter; the key stays on your phone, is sent only to OpenRouter to authorise your requests, and is never included in backups.</p>
+    <p><strong>We do not collect</strong> phone number, location, contacts, photos, camera or microphone data, analytics, advertising identifiers or crash reports. The app sends no notifications. Its only permission is internet access.</p>
+    <p><strong>Where it goes:</strong> accounts and notebooks are stored at Supabase (<code>gjaxiiyyqvkrfndurizn.supabase.co</code>), where each user can read and write only their own record; Google handles sign-in under its own privacy policy; spoken text goes to OpenRouter (<code>openrouter.ai</code>), which forwards it to the provider of the voice model you chose (e.g. MiniMax, Google, xAI or OpenAI) and is subject to their privacy policies. Without a key, speech uses your phone's own speech engine and the app sends the text nowhere. All connections use HTTPS. No other servers are contacted.</p>
+    <p><strong>Retention:</strong> on-device data until you uninstall; the server notebook and account record until you delete them or ask us to. If you backed up without Google and later signed in with Google, your notebook moves to the Google account and the earlier copy remains on the server until you ask for its deletion. Spoken text is not stored on any server; generated audio is cached on your phone so you don't pay twice.</p>
+    <p><strong>Deletion:</strong> Settings → Notebook → <em>Delete account and backup</em> immediately and permanently removes your server notebook, your account record (including your Google email, name and photo link) and the local session. If you no longer have access to the app, or want an earlier non-Google backup removed too, write to the contact below, preferably from the Google email you signed in with; your account record and server copies are deleted within 30 days. On-device learning data is deliberately kept — uninstall the app to remove it.</p>
+    <p><strong>Children:</strong> the app is not directed at children and asks for no age information. Google sign-in follows Google's own age rules.</p>
+    <p><strong>Contact:</strong> <a href="mailto:furkanbali885@gmail.com">furkanbali885@gmail.com</a></p>
+  </section>
+</main>
+</body>
+</html>
