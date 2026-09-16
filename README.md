@@ -12,6 +12,7 @@ lisans metinleri: [licenses/](licenses/)
 |---|---|---|
 | `veri/strokes.js` | 1.187 karakterin vuruş verisi (SVG yolları + medians) | Arphic Public License |
 | `veri/en.js` | 6.116 kelimenin İngilizce anlamı | CC BY-SA 4.0 (+ 582 kayıt LGPL 3.0) |
+| `veri/grammar.js` | 311 gramer kalıbı (HSK 1-4), 3.662 örnek cümle | CC BY-NC-SA 3.0 — **ticari kullanım yok** |
 
 ---
 
@@ -62,13 +63,30 @@ Yapılan değişiklikler:
 
 Anlamlar İngilizce'den İngilizce'ye alındı; çeviri yapılmadı.
 
----
+### `veri/grammar.js` — 2026-07-18 / 2026-07-20, atıf 2026-09-16
 
-## Bu dosyaları kullanmak isteyenler
+Üstkaynak: **AllSet Learning Chinese Grammar Wiki**
+(https://resources.allsetlearning.com/chinese/grammar/), © 2011-2026
+AllSet Learning, CC BY-NC-SA 3.0; `krmanik/Chinese-Grammar` derlemesi
+üzerinden.
+
+Yapılan değişiklikler:
+
+1. **Alan seçimi.** Her kalıptan başlık, yapı, kullanım etiketleri ve
+   örnek cümleler (Çince, pinyin, İngilizce) alındı.
+2. **Eklenen alanlar.** Elle yazılmış kısa Türkçe başlık (`tr`), kimlik
+   (`id`) ve HSK 3.0 seviyesi (`lv`).
+
+⚠ Pinyin alanı kaynaktan olduğu gibi geldi ve bilinen okunuş hataları
+taşıyor (ör. 都 → dū); düzeltilmedi.
+
+
 
 Serbestsiniz — lisansların koşullarına uyduğunuz sürece. `strokes.js`
-için Arphic PL, `en.js` için CC BY-SA 4.0 geçerli; ikisi de
-türetilmiş hâlin aynı lisansla erişilebilir kalmasını istiyor.
+için Arphic PL, `en.js` için CC BY-SA 4.0, `grammar.js` için CC BY-NC-SA 3.0
+geçerli; üçü de türetilmiş hâlin aynı lisansla erişilebilir kalmasını
+istiyor. `grammar.js` **ticari amaçla kullanılamaz** — AllSet Learning'e
+göre reklamdan gelir getiren site ve uygulamalar da buna dahil.
 
 `veri/en.js` iki lisansı karıştırdığı için (bkz. NOTICE) ayrıştırılmış
 hâline ihtiyacınız varsa, kayıt başına kaynak bilgisi uygulamanın

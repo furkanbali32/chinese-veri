@@ -2,7 +2,7 @@
 ════════════════════════════════════════════════════════════════════════
 
 Bu depo, "Hanzi Defteri · 字迹" adlı Çince öğrenme uygulamasının içine
-giren ve BULAŞICI (share-alike) lisans taşıyan iki veri dosyasını
+giren ve BULAŞICI (share-alike) lisans taşıyan üç veri dosyasını
 yayınlar. Amacı tek: o lisansların "türetilmiş hâli erişilebilir olsun"
 şartını karşılamak.
 
@@ -69,3 +69,26 @@ veri/en.js  —  CC BY-SA 4.0 (+ kısmen LGPL 3.0)
   İngilizce'ye alındı; yaptığımız iş okunuşa göre doğru anlamı seçmek,
   sözlükbilim notlarını ("variant of…", "bound form…") elemek ve
   kısaltmak. Yani türev eser, yeni eser değil.
+
+
+────────────────────────────────────────────────────────────────────────
+veri/grammar.js  —  CC BY-NC-SA 3.0  ·  TİCARİ KULLANIM YOK
+────────────────────────────────────────────────────────────────────────
+
+  Ne:        311 Çince gramer kalıbı (HSK 1-4) ve 3.662 örnek cümle:
+             başlık, yapı, kullanım etiketi, örnekler (zh/pinyin/en).
+  Kaynak:    AllSet Learning Chinese Grammar Wiki
+             https://resources.allsetlearning.com/chinese/grammar/
+             (krmanik/Chinese-Grammar derlemesi üzerinden)
+  Telif:     © 2011-2026 AllSet Learning
+  Lisans:    CC BY-NC-SA 3.0  ·  licenses/CC-BY-NC-SA-3.0.txt
+             https://creativecommons.org/licenses/by-nc-sa/3.0/
+
+  Değişiklikler: alan seçimi; her kayda elle yazılmış Türkçe başlık
+  (`tr`), `id` ve HSK 3.0 seviyesi (`lv`) eklendi. Ayrıntı README'de.
+
+  ⚠ NC. AllSet Learning'in telif sayfasına göre reklamla herhangi bir
+  gelir elde eden site veya uygulama da bu içeriği bu lisansla
+  kullanamaz. Uygulama ticari olmayan biçimde dağıtılıyor; para
+  kazanmaya açılırsa bu dosya uygulamadan önce çıkarılır.
+
