@@ -1,8 +1,8 @@
 # chinese-veri
 
-"Hanzi Defteri · 字迹" uygulamasının **bulaşıcı lisanslı iki veri
-dosyası**. Bu depo bir kütüphane değil; tek işi Arphic Public License ve
-CC BY-SA 4.0'ın *"türetilmiş hâli erişilebilir olsun"* şartını
+"Hanzi Defteri · 字迹" uygulamasının **bulaşıcı lisanslı üç veri
+dosyası**. Bu depo bir kütüphane değil; tek işi Arphic Public License,
+CC BY-SA 4.0 ve CC BY-NC-SA 3.0'ın *"türetilmiş hâli erişilebilir olsun"* şartını
 karşılamak.
 
 Kaynak, lisans ve sınırların tamamı: [NOTICE](NOTICE) ·
