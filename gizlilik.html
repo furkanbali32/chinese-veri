@@ -28,17 +28,18 @@
 <body>
 <main>
   <h1>Hanzı Defteri — Gizlilik Politikası</h1>
-  <p class="alt">Yürürlük tarihi: 15 Eylül 2026 · Sürüm 1.1 · <a href="#en">English below</a></p>
+  <p class="alt">Yürürlük tarihi: 3 Ekim 2026 · Sürüm 1.2 · <a href="#en">English below</a></p>
 
   <p>Hanzı Defteri, Çince karakter ve kelime öğrenmek için bir defter uygulamasıdır. Bu sayfa, uygulamanın hangi verileri işlediğini, bunların nereye gittiğini ve nasıl silindiğini eksiksiz anlatır. Burada yazmayan hiçbir veri toplanmaz.</p>
 
   <h2>1. Kısa özet</h2>
   <div class="kutu">
     <ul style="margin:0; padding-left:20px;">
-      <li>Öğrenme verileriniz <strong>telefonunuzda</strong> durur. Hesap kullanmazsanız uygulama sunucuya hiçbir şey göndermez.</li>
+      <li>Öğrenme verileriniz <strong>telefonunuzda</strong> durur. Hesap kullanmazsanız ve el yazısı katkısına izin vermediyseniz uygulama sunucuya hiçbir şey göndermez.</li>
+      <li><strong>Çizerek aramada izin verirseniz</strong> çizdiğiniz karakterler ve listeden seçtiğiniz karakter, el yazısı tanımayı geliştirmek için <strong>adınız, hesabınız ve cihaz kimliğiniz olmadan</strong> gönderilir. İzin vermezseniz hiçbir çizim gönderilmez; izni Ayarlar'dan istediğiniz zaman kapatabilirsiniz.</li>
       <li><strong>Google ile giriş yaparsanız</strong> defteriniz hesabınıza bağlanır ve cihazlarınız arasında <strong>otomatik olarak eşitlenir</strong>. Bu durumda Google'dan e-posta adresiniz, adınız ve profil fotoğrafınızın bağlantısı alınır.</li>
       <li>Telefon numarası, konum, rehber, fotoğraf, kamera ve mikrofon verisi <strong>istenmez ve toplanmaz</strong>.</li>
-      <li>Analitik, reklam kimliği, çökme raporu ve bildirim <strong>yoktur</strong>. Uygulamanın tek izni internettir.</li>
+      <li>Analitik, reklam kimliği, çökme raporu ve bildirim <strong>yoktur</strong>. Uygulamanın izinleri yalnız internet ve titreşimdir (dokunsal geri bildirim).</li>
       <li>Yapay zekâ seslendirmesini kendi OpenRouter anahtarınızla açarsanız, seslendirilen metin <strong>OpenRouter</strong>'a gönderilir.</li>
       <li>Hesabınızı ve sunucudaki defterinizi <strong>uygulama içinden</strong> silebilirsiniz.</li>
     </ul>
@@ -56,6 +57,7 @@
       <tr><td>Çalışma günlüğü (günlük süreler, çalışma oturumları)</td><td>Telefon; hesap varsa sunucudaki defter</td><td>Yalnız hesap kullanırsanız</td><td>Yedekleme ve eşitleme</td></tr>
       <tr><td>Eklediğiniz kelimeler</td><td>Telefon; hesap varsa sunucudaki defter</td><td>Yalnız hesap kullanırsanız</td><td>Yedekleme ve eşitleme</td></tr>
       <tr><td>İki çalışma tercihi: pinyin gösterimi ve süre birimi</td><td>Telefon; hesap varsa sunucudaki defter</td><td>Yalnız hesap kullanırsanız</td><td>Tercihin öbür cihazda da geçerli olması</td></tr>
+      <tr><td>El yazısı örnekleri (isteğe bağlı): çizdiğiniz karakterin şekli (vuruşlar; çizim hızı yok), listeden seçtiğiniz karakter, modelin o karakteri listede kaçıncı gösterdiği, çizimin tarihi ve saati, uygulama sürümü ve kurulum başına rastgele bir kod</td><td>Gönderilene kadar telefon; sonra Supabase</td><td>Evet — yalnız çizerek aramada izin verdiyseniz. Hesap gerekmez; hesabınıza bağlanmaz</td><td>El yazısı tanıma modelini eğitmek</td></tr>
       <tr><td>Diğer tercihler: tema, dil, fırça ayarı, ses ayarları</td><td>Yalnız telefon</td><td><strong>Hayır</strong></td><td>Uygulamanın görünümü ve davranışı</td></tr>
       <tr><td>OpenRouter API anahtarınız</td><td>Yalnız telefon</td><td>Yalnız OpenRouter'a, isteğinizin kimliği olarak. Bize gönderilmez, yedeğe girmez.</td><td>Seslendirme</td></tr>
       <tr><td>Seslendirilen metin (karakter, kelime, cümle)</td><td>Üretilen ses telefonda saklanır</td><td>OpenRouter'a — yalnız siz dinlediğinizde ve o metin daha önce seslendirilmemişse</td><td>Sesi üretmek</td></tr>
@@ -67,10 +69,11 @@
   <h2>3. Verilerin gittiği yerler</h2>
   <p>Uygulama yalnız aşağıdaki hizmetlerle konuşur ve hepsi isteğe bağlıdır:</p>
   <ul>
-    <li><strong>Supabase</strong> (<code>gjaxiiyyqvkrfndurizn.supabase.co</code>) — hesap ve defter. Defteriniz tek bir kayıt olarak saklanır; her kullanıcı yalnız kendi kaydını okuyup yazabilir.
+    <li><strong>Supabase</strong> (<code>gjaxiiyyqvkrfndurizn.supabase.co</code>) — hesap, defter ve (izin verdiyseniz) el yazısı örnekleri. Defteriniz tek bir kayıt olarak saklanır; her kullanıcı yalnız kendi kaydını okuyup yazabilir.
       <ul>
         <li><em>Google ile giriş yapmadıysanız:</em> sunucuya yalnız Ayarlar → Defter'de <em>Yedekle</em>, <em>Geri yükle</em> ya da <em>Sil</em> dediğinizde bağlanılır.</li>
         <li><em>Google ile giriş yaptıysanız:</em> defteriniz uygulama açılınca, öne gelince, arka plana geçerken ve bir değişiklikten kısa süre sonra kendiliğinden gönderilir ve alınır. Uygulama açıkken, başka bir cihazınızda yapılan değişikliği haber almak için sunucuyla bir bağlantı açık tutulur.</li>
+        <li><em>El yazısı katkısına izin verdiyseniz:</em> örnekler telefonda biriktirilir; 20 örnek olunca ya da en eskisi 3 gündür bekliyorsa, hesap ya da oturum bilgisi taşımadan tek seferde gönderilir. Örnekler adınızla, hesabınızla ya da cihaz kimliğinizle ilişkilendirilmez; taşıdıkları tek kod, aynı kurulumdan gelen örnekleri gruplamak için uygulamanın ürettiği rastgele bir değerdir ve uygulamanın verileri silinince yenisi üretilir (Android'in kendi yedeği uygulamayı yeniden kurarken eski verileri geri yüklerse aynı kod geri gelebilir). Uygulama bu örneklere yalnız ekleme yapabilir; ne siz ne başka bir kullanıcı onları uygulamadan okuyabilir. Örnekler yalnız tanıma modelini eğitmek için kullanılır ve üçüncü kişilerle paylaşılmaz. Her internet isteğinde olduğu gibi IP adresiniz Supabase'in erişim kayıtlarında görünebilir; örneklerle birlikte saklanmaz.</li>
       </ul>
     </li>
     <li><strong>Google</strong> — yalnız Google ile giriş yaparken. Giriş, telefonunuzun tarayıcısında Google'ın kendi sayfasında yapılır ve Google'ın gizlilik politikasına tabidir. Uygulama Google'dan yalnız temel profil bilgilerini (e-posta, ad, profil fotoğrafı) alır; Gmail, Drive, rehber gibi hiçbir şeye erişim istemez. Parolanız uygulamaya hiçbir zaman gelmez.</li>
@@ -83,12 +86,14 @@
     <li>Telefonunuzdaki veriler, uygulamayı kaldırana kadar durur.</li>
     <li>Sunucudaki defteriniz ve hesap kaydınız, siz silene ya da silinmesini isteyene kadar durur. Belirli bir süre sonunda kendiliğinden silinmez.</li>
     <li>Önce Google'sız yedek alıp sonra Google ile giriş yaptıysanız, defteriniz Google hesabınıza taşınır; eski Google'sız yedeğin kopyası sunucuda kalır. Silinmesini aşağıdaki adrese yazarak isteyebilirsiniz.</li>
+    <li>Gönderilen el yazısı örnekleri modeli eğitmek için saklanır; belirli bir süre sonunda kendiliğinden silinmez. Telefonda gönderilmeyi bekleyen örnekler en çok 500 tanedir.</li>
     <li>Seslendirilen metin sunucuda saklanmaz; üretilen ses, tekrar ücret ödememeniz için telefonunuzda saklanır.</li>
   </ul>
 
   <h2>5. Silme</h2>
   <p><strong>Uygulama içinden:</strong> Ayarlar → Defter → <em>Hesabı ve yedeği sil</em>. Bu işlem sunucudaki defterinizi, hesap kaydınızı (Google ile girdiyseniz e-posta adresiniz, adınız ve fotoğraf bağlantınız dahil) ve telefonunuzdaki oturumu hemen ve kalıcı olarak siler.</p>
   <p><strong>E-postayla:</strong> uygulamaya artık erişiminiz yoksa ya da eski Google'sız yedeğinizin de silinmesini istiyorsanız aşağıdaki adrese, mümkünse giriş yaptığınız Google e-posta adresinden yazın; hesap kaydınız ve sunucudaki kopyalarınız en geç 30 gün içinde silinir.</p>
+  <p><strong>El yazısı örnekleri:</strong> Ayarlar → El yazısı verisi → <em>Çizimlerimi gönder</em> → Kapalı. Gönderim hemen durur ve henüz gönderilmemiş örnekler telefonunuzdan silinir. Gönderilmiş örnekler adınıza, hesabınıza ya da cihazınıza bağlı olmadığından hangilerinin size ait olduğu belirlenemez; bu yüzden hesap silme onları kapsamaz ve sonradan tek tek silinemez.</p>
   <p>Telefonunuzdaki öğrenme verileri kasıtlı olarak silinmez — emeğiniz size aittir; onu silmenin yolu uygulamayı kaldırmaktır.</p>
 
   <h2>6. Çocuklar</h2>
@@ -102,12 +107,13 @@
 
   <section class="en" id="en">
     <h1 style="font-size:22px;">Privacy Policy (English)</h1>
-    <p class="alt">Effective 15 September 2026 · v1.1</p>
-    <p>Hanzı Defteri is a notebook for learning Chinese characters and words. Your learning data lives <strong>on your phone</strong>. If you do not use an account, the app sends nothing to a server.</p>
+    <p class="alt">Effective 3 October 2026 · v1.2</p>
+    <p>Hanzı Defteri is a notebook for learning Chinese characters and words. Your learning data lives <strong>on your phone</strong>. If you do not use an account and have not allowed handwriting samples, the app sends nothing to a server.</p>
     <p><strong>Accounts:</strong> if you <strong>sign in with Google</strong>, your notebook is linked to your account and <strong>synced automatically</strong> between your devices: when the app opens, comes to the foreground, goes to the background, and shortly after each change; while the app is open it keeps a connection to the server to hear about changes made on your other devices. Google sign-in happens on Google's own page in your browser and gives the app only your basic profile: email address, name and profile photo link. The app never sees your password and requests no access to Gmail, Drive or contacts. Without Google, the server is contacted only when you tap <em>Back up</em>, <em>Restore</em> or <em>Delete</em>.</p>
     <p><strong>Data processed:</strong> an account ID and an app-generated device ID (only if you use an account); your Google email, name and profile photo link (only with Google sign-in, stored in the Supabase identity record, not on the phone); your learning progress (learned characters and words, notes, learning dates, card review history, writing memory and pen calibration, word-network marks), study journal, custom words, and two study preferences (pinyin display, time unit) — in the server notebook only if you use an account. Theme, language, brush and voice settings stay on the phone. If you use AI text-to-speech with your own OpenRouter API key, the text being spoken is sent to OpenRouter; the key stays on your phone, is sent only to OpenRouter to authorise your requests, and is never included in backups.</p>
-    <p><strong>We do not collect</strong> phone number, location, contacts, photos, camera or microphone data, analytics, advertising identifiers or crash reports. The app sends no notifications. Its only permission is internet access.</p>
-    <p><strong>Where it goes:</strong> accounts and notebooks are stored at Supabase (<code>gjaxiiyyqvkrfndurizn.supabase.co</code>), where each user can read and write only their own record; Google handles sign-in under its own privacy policy; spoken text goes to OpenRouter (<code>openrouter.ai</code>), which forwards it to the provider of the voice model you chose (e.g. MiniMax, Google, xAI or OpenAI) and is subject to their privacy policies. Without a key, speech uses your phone's own speech engine and the app sends the text nowhere. All connections use HTTPS. No other servers are contacted.</p>
+    <p><strong>Handwriting samples (optional):</strong> if you allow it in draw-to-search, each character you draw (its strokes, without drawing speed), the character you pick from the list, the position at which the model listed it, the date and time of the drawing, the app version and a random per-install code are sent to our Supabase server to train the handwriting recognition model. No account is needed and none is attached: samples are not linked to your name, account or device identifier; the random code only groups samples from the same install and a new one is generated when the app's data is cleared (if Android's own backup restores the app's data on reinstall, the same code may return). Samples are queued on the phone and sent once 20 have accumulated or the oldest has waited 3 days. The app can only add samples, not read them back, and they are not shared with third parties. As with any internet request, your IP address may appear in Supabase's access logs; it is not stored with the samples. Sent samples are kept for training and are not deleted automatically. To stop: Settings → Handwriting data → <em>Send my drawings</em> → Off; sending stops and samples not yet sent (at most 500) are deleted from your device. Because sent samples are not linked to you, they cannot be identified as yours, are not covered by account deletion and cannot be deleted individually afterwards.</p>
+    <p><strong>We do not collect</strong> phone number, location, contacts, photos, camera or microphone data, analytics, advertising identifiers or crash reports. The app sends no notifications. Its only permissions are internet access and vibration (haptic feedback).</p>
+    <p><strong>Where it goes:</strong> accounts, notebooks and (if you allowed it) handwriting samples are stored at Supabase (<code>gjaxiiyyqvkrfndurizn.supabase.co</code>), where each user can read and write only their own record; Google handles sign-in under its own privacy policy; spoken text goes to OpenRouter (<code>openrouter.ai</code>), which forwards it to the provider of the voice model you chose (e.g. MiniMax, Google, xAI or OpenAI) and is subject to their privacy policies. Without a key, speech uses your phone's own speech engine and the app sends the text nowhere. All connections use HTTPS. No other servers are contacted.</p>
     <p><strong>Retention:</strong> on-device data until you uninstall; the server notebook and account record until you delete them or ask us to. If you backed up without Google and later signed in with Google, your notebook moves to the Google account and the earlier copy remains on the server until you ask for its deletion. Spoken text is not stored on any server; generated audio is cached on your phone so you don't pay twice.</p>
     <p><strong>Deletion:</strong> Settings → Notebook → <em>Delete account and backup</em> immediately and permanently removes your server notebook, your account record (including your Google email, name and photo link) and the local session. If you no longer have access to the app, or want an earlier non-Google backup removed too, write to the contact below, preferably from the Google email you signed in with; your account record and server copies are deleted within 30 days. On-device learning data is deliberately kept — uninstall the app to remove it.</p>
     <p><strong>Children:</strong> the app is not directed at children and asks for no age information. Google sign-in follows Google's own age rules.</p>
