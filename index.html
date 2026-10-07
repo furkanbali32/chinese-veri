@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lian · 字迹</title>
-<meta name="description" content="Lian: HSK 1–6 Çince karakter (hanzi) öğrenme defteri. Puan yok, seri yok — yol gösteren bir rehber.">
+<meta name="description" content="Lian: a Chinese character (hanzi) learning notebook for HSK 1–6. No points, no streaks — a guide, not a game.">
 <style>
   :root { color-scheme: light dark; --mur:#1d1d1f; --mur2:#5c5c62; --zemin:#f7f7f8; --yuzey:#ffffff; --cizgi:#e4e4e7; --vurgu:#ab4971; }
   @media (prefers-color-scheme: dark) { :root { --mur:rgba(255,255,255,.92); --mur2:rgba(255,255,255,.62); --zemin:#000; --yuzey:#101010; --cizgi:rgba(255,255,255,.10); --vurgu:#dd99b5; } }
@@ -16,36 +16,51 @@
   h2 { font-size: 20px; margin: 36px 0 8px; }
   ul { padding-left: 20px; }
   a { color: var(--vurgu); }
-  .kart { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 14px; padding: 4px 20px; margin-top: 48px; }
+  .kart { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 14px; padding: 4px 20px; margin-top: 36px; }
+  .ekranlar { display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; margin: 0 -20px; padding: 0 20px 8px; }
+  .ekranlar img { width: 220px; height: auto; aspect-ratio: 9/16; flex: none; border-radius: 16px; border: 1px solid var(--cizgi); scroll-snap-align: start; background:#000; }
   footer { color: var(--mur2); font-size: 14px; margin-top: 48px; border-top: 1px solid var(--cizgi); padding-top: 16px; }
 </style>
 </head>
 <body>
 <main>
   <h1>Lian <span>字迹</span></h1>
-  <p class="alt">Çince karakter öğrenme defteri. Öğretmiyoruz — bu zorlu yolda yol gösteriyoruz.</p>
+  <p class="alt">A Chinese character notebook. We don't teach you — we guide you along a hard road.</p>
 
-  <h2>Ne yapar</h2>
+  <!-- Görseller magaza/ekran/'dan chinese-veri/ekran/'a kopyalanır; bu depoda ikinci kopya tutulmaz. -->
+  <div class="ekranlar">
+    <img src="ekran/1-ev.png" alt="Today screen: the day's review cards" loading="lazy">
+    <img src="ekran/5-duvar.png" alt="The Wall: characters learned across HSK 1–6" loading="lazy">
+    <img src="ekran/2-kutuphane.png" alt="Library" loading="lazy">
+    <img src="ekran/3-detay.png" alt="Character detail" loading="lazy">
+    <img src="ekran/7-cizerek-arama.png" alt="Search by drawing a character" loading="lazy">
+  </div>
+
+  <h2>What it does</h2>
   <ul>
-    <li>Resmî <strong>HSK 2025</strong> listesine göre HSK 1–6 karakterleri ve kelimeleri</li>
-    <li>笔顺 yazılış animasyonu ve parmakla yazma (fırça hissi)</li>
-    <li>Telaffuz, örnek cümleler, tanıma kartları</li>
-    <li>Kalıplar arası ilişkiler: her sayfa bir sonraki adımı gösterir</li>
-    <li>Öğrendiklerini gösteren Duvar; kayıt cihazda, istersen Google hesabıyla yedek</li>
+    <li>HSK 1–6 characters and words, following the official <strong>HSK 2025</strong> list</li>
+    <li>Stroke-order (笔顺) animation and handwriting practice with a brush feel</li>
+    <li>Pronunciation, example sentences and recognition cards</li>
+    <li>Grammar patterns linked to each other: every page shows a next step</li>
+    <li>The Wall, a map of everything you have learned; progress stays on your device, with optional Google backup</li>
   </ul>
 
-  <h2>Ne değil</h2>
-  <p>Puan, XP, seri, kırmızı-yeşil, "yanlış" dili yok. Motivasyonu dış ödül değil merak taşır. Asıl çalışma defterde; uygulama kılavuz.</p>
+  <h2>What it is not</h2>
+  <p>No points, XP, streaks, hearts or leaderboards. No red-and-green grading, no "wrong". Curiosity carries the motivation, not rewards. The real work happens in your own notebook; Lian is the guide beside it.</p>
 
-  <div class="kart" id="en" lang="en">
-    <h2>In English</h2>
-    <p><strong>Lian</strong> is a Chinese character (hanzi) learning notebook for Android and iOS, covering HSK 1–6 according to the official HSK 2025 list. It offers stroke-order animation, handwriting practice, pronunciation, example sentences, recognition cards and a map of how grammar patterns relate to each other.</p>
-    <p>No points, streaks or leaderboards: Lian is a guide, not a game. Progress stays on the device, with optional backup via Google sign-in.</p>
+  <div class="kart">
+    <h2>Our goals</h2>
+    <ul>
+      <li><strong>Make learning Chinese easier, not longer.</strong> Answer the question every learner has: what should I study next, and how does it connect to what I already know?</li>
+      <li><strong>Never exploit learners.</strong> No mechanic that slows learning down to make money: no artificial waits, no locks, no "upgrade or you'll forget".</li>
+      <li><strong>Be the app you install right after Pleco.</strong> We don't compete with the dictionary; we do what it doesn't — when, in what order, and why.</li>
+      <li><strong>Become a classic.</strong> A trusted name on the road to Chinese, built on decisions that will still be right in ten years.</li>
+    </ul>
   </div>
 
   <footer>
-    İletişim / Contact: <a href="mailto:furkanbali885@gmail.com">furkanbali885@gmail.com</a> ·
-    <a href="gizlilik.html">Gizlilik / Privacy</a>
+    Contact: <a href="mailto:furkanbali885@gmail.com">furkanbali885@gmail.com</a> ·
+    <a href="gizlilik.html#en">Privacy policy</a>
   </footer>
 </main>
 </body>
