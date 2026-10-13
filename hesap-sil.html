@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lian — Hesap Silme</title>
+<meta name="description" content="Lian hesabınızı ve sunucudaki verilerinizi silme / Delete your Lian account and server data.">
+<style>
+  :root { color-scheme: light dark; --mur:#1d1d1f; --mur2:#5c5c62; --zemin:#f7f7f8; --yuzey:#ffffff; --cizgi:#e4e4e7; --vurgu:#ab4971; }
+  @media (prefers-color-scheme: dark) { :root { --mur:rgba(255,255,255,.92); --mur2:rgba(255,255,255,.62); --zemin:#000; --yuzey:#101010; --cizgi:rgba(255,255,255,.10); --vurgu:#dd99b5; } }
+  body { margin:0; background:var(--zemin); color:var(--mur); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 28px; line-height:1.2; margin: 0 0 4px; letter-spacing:-.3px; }
+  .alt { color: var(--mur2); margin: 0 0 28px; font-size: 14px; }
+  h2 { font-size: 18px; margin: 32px 0 8px; }
+  p, li { color: var(--mur); }
+  .tablo { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 8px 0 4px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 8px; border-bottom: 1px solid var(--cizgi); }
+  th { color: var(--mur2); font-weight: 600; font-size: 12px; letter-spacing: .4px; text-transform: uppercase; }
+  code { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 4px; padding: 1px 5px; }
+  a { color: var(--vurgu); }
+  .kutu { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 12px; padding: 14px 16px; margin: 12px 0; }
+  .en { border-top: 1px solid var(--cizgi); margin-top: 48px; padding-top: 24px; }
+  .not { color: var(--mur2); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Lian — Hesap ve veri silme</h1>
+  <p class="alt">Uygulama: Lian (Google Play: <code>com.balicik.lian</code>) · Geliştirici: balicik · <a href="#en">English below</a></p>
+
+  <h2>1. Uygulama içinden (hemen)</h2>
+  <ol>
+    <li>Lian'ı açın ve <strong>Ayarlar</strong>'a gidin.</li>
+    <li><strong>Hesap</strong> bölümünde <strong>Hesabı sil</strong>'e dokunun.</li>
+    <li>Onay penceresinde silmeyi onaylayın.</li>
+  </ol>
+  <p>Silme anında ve kalıcıdır.</p>
+
+  <h2>2. Uygulama olmadan (e-postayla)</h2>
+  <p>Uygulamaya erişiminiz yoksa <a href="mailto:furkanbali885@gmail.com?subject=Lian%20hesap%20silme">furkanbali885@gmail.com</a> adresine, mümkünse giriş yaptığınız Google e-posta adresinden "Lian hesap silme" konulu bir e-posta gönderin. Hesabınız ve sunucudaki bütün kopyalarınız en geç <strong>30 gün</strong> içinde silinir ve size bildirilir.</p>
+
+  <h2>3. Ne silinir, ne kalır</h2>
+  <div class="tablo">
+  <table>
+    <thead><tr><th>Veri</th><th>Sonuç</th></tr></thead>
+    <tbody>
+      <tr><td>Sunucudaki defteriniz (öğrenme ilerlemesi, notlar, eklediğiniz kelimeler, çalışma günlüğü, tercihler)</td><td><strong>Silinir</strong></td></tr>
+      <tr><td>Hesap kaydınız (kullanıcı numarası; Google ile girdiyseniz e-posta, ad, profil fotoğrafı bağlantısı)</td><td><strong>Silinir</strong></td></tr>
+      <tr><td>Önceki bir sürümde Google'sız aldığınız yedek</td><td>E-postayla istediğinizde <strong>silinir</strong></td></tr>
+      <tr><td>Telefondaki oturum</td><td><strong>Silinir</strong></td></tr>
+      <tr><td>Telefondaki öğrenme verileri</td><td>Kasıtlı olarak <strong>kalır</strong>; uygulamayı kaldırınca silinir</td></tr>
+      <tr><td>İzin verdiyseniz gönderilmiş el yazısı örnekleri</td><td><strong>Kalır</strong>: adınıza, hesabınıza ya da cihazınıza bağlı olmadıkları için hangilerinin size ait olduğu belirlenemez. Gönderilmemiş olanlar Ayarlar → El yazısı verisi → <em>Çizimlerimi gönder</em> → Kapalı ile telefondan silinir.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="not">Hesabı silmeden yalnız bir kısım veriyi silmek için de aynı adrese yazabilirsiniz. Ayrıntılar: <a href="gizlilik.html#silme">gizlilik politikası</a>.</p>
+
+  <section class="en" id="en">
+    <h1 style="font-size:22px;">Lian — Delete your account and data</h1>
+    <p class="alt">App: Lian (Google Play: <code>com.balicik.lian</code>) · Developer: balicik</p>
+    <p><strong>In the app (immediate):</strong> open Lian → <strong>Settings</strong> → <strong>Account</strong> → <strong>Delete account</strong>, then confirm. Deletion is immediate and permanent.</p>
+    <p><strong>Without the app (by email):</strong> email <a href="mailto:furkanbali885@gmail.com?subject=Lian%20account%20deletion">furkanbali885@gmail.com</a> with the subject "Lian account deletion", preferably from the Google email you signed in with. Your account and all server copies are deleted within <strong>30 days</strong> and you will be notified.</p>
+    <p><strong>Deleted:</strong> your server notebook (learning progress, notes, custom words, study journal, preferences); your account record (user ID and, with Google sign-in, email, name and profile photo link); any earlier non-Google backup, on request by email; the session on your phone.</p>
+    <p><strong>Kept:</strong> learning data on your phone is deliberately kept until you uninstall the app. Handwriting samples you chose to send are kept because they are not linked to your name, account or device and cannot be identified as yours; samples not yet sent are deleted from your phone with Settings → Handwriting data → <em>Send my drawings</em> → Off.</p>
+    <p class="not">To delete only part of your data without deleting the account, email the same address. Details: <a href="gizlilik.html#deletion">privacy policy</a>.</p>
+  </section>
+</main>
+</body>
+</html>
