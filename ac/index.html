@@ -1,0 +1,580 @@
+<!doctype html>
+<!--
+  PAYLAŞIM SAYFASI (docs/134) — Lian'dan paylaşılan deste ve kelime bağlantılarının web yüzü.
+
+    …/ac/#d=<base64url(kelimeler)>&a=<ad>     deste
+    …/ac/#ara=<kelime>                        kelime
+
+  ⚠ TEK DOSYA, DURAĞAN. Dış kitaplık, yazı tipi, ölçüm yok; ağ istekleri yalnız aynı dizindeki
+  sözlük — okuyanın dilinde, iki kat (`sozluk-<dil>-1.json`, gerekirse `-2.json`; üreteç `scripts/site-sozluk.mjs`). İçerik adresin PARÇASINDA taşınır —
+  tarayıcı parçayı sunucuya göndermez.
+  ⚠ PARÇA SALDIRGANIN ELİNDE. Çözücü uygulamanınkiyle aynı süzgeci uygular
+  (`liste/domain/desteBaglantisi.js`, `kutuphane/domain/disSorgu.js`) ve sayfa kullanıcı
+  verisini yalnız `textContent` ile yazar. İki ucun eşitliğini, şemayı ve bu yasakları
+  `scripts/paylasim-sayfa-denetim.mjs` ölçer; tarayıcı davranışını `scripts/e2e/paylasim-sayfa.js`.
+  ⚠ KAYNAK `chinese/site/ac/index.html`; `chinese-veri/ac/index.html` bayt bayt kopyasıdır.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- 'unsafe-inline': tek dosyalı sayfanın kendi betiği ve stili. Özet (hash) daha sıkı olurdu ama
+     MAGAZA_URL'yi elle değiştiren biri özeti güncellemeyi unutursa sayfa TAMAMEN ölür; asıl
+     savunma kullanıcı verisinin hiçbir yerde HTML olarak yazılmaması (denetim `innerHTML`i yasaklar). -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Lian · Shared deck</title>
+<meta name="description" content="A Chinese vocabulary deck or word shared from Lian: characters, tone-coloured pinyin and meanings. Open it in the app to study.">
+<!-- Önizleme metni DURAĞAN: parça (#…) tarayıcıdan çıkmaz, önizleme robotu desteyi göremez. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lian">
+<meta property="og:title" content="A deck shared from Lian">
+<meta property="og:description" content="Chinese characters, tone-coloured pinyin and meanings. Open it in Lian to study.">
+<meta property="og:url" content="https://furkanbali32.github.io/chinese-veri/ac/">
+<meta property="og:image" content="https://furkanbali32.github.io/chinese-veri/ac/kapak.png">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A deck shared from Lian">
+<meta name="twitter:description" content="Chinese characters, tone-coloured pinyin and meanings. Open it in Lian to study.">
+<meta name="twitter:image" content="https://furkanbali32.github.io/chinese-veri/ac/kapak.png">
+<meta name="theme-color" content="#F5F5F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<!-- Uygulamanın kendi simgesi (`assets/favicon.png`), gömülü: sayfa tek dosya kalsın. -->
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAEcklEQVR4nOxYX0yTVxS/bJJAKAFCaaCFbi2FhKwvFgJtFTMJUrsVIkJIZvBPNGG4B5eiLiQuc1LtAvMNowYmKHXswaUDuxQxAdNZNimplAhFCMFWXCBISfhT4InszGuuX8pHv+L31fDAL03zu+fe3vx6z7n3nnN3oW2GXWibYUcQEz5G4YFcLufzE1+/nkNbxEeIUxw/fuzhw26/f6m//5+BAQeQ9vZfFQpF6DNEII4QHR198+aN8vIy2t6mpma9vgaFAM5cZjK1lZYe2qw3Ozt7eXm5v9+BmMDNCoGUu3dNjMOEwtSFhYXgY7iJodraWsJnZmaqqqolEqlUKrtyxUgdtn//54xTcbDtVSqlXP4Z5isrKxqNdmJiAjeNxp+02oMkqNPS0hhn40CQVqslvK7OQNRgCAQCwpeWltAHEJSTk0N4S0srtWvfvvzU1FTSdLmG0AcQlJmZgYnVavX7/cQeFRV17VojacLKuVwuxtk4COqUlBRMHI4BYoyJiens7EhPTycWvf5sKLOxXaH4+HjCR0dHMUlISOjoMFNdef78d729vaFMyHaF+Hw+4R6PF76LioqePnVS1VRXf3P9+o3Q5mO9QkJhCuERERFtbXfKyg4Ty+Li4pkz39679zsKGWwFiUTvNtGTJ39Tu5xOZ2npYZ9vHm0FbF2WlMSntd++faek5NBW1SD2K0SNIYzh4ZGqqq+HhpiPnLAIEgqFmMzPz7e3/2a32y2WPxELsBVEDmLIeAyGy4g12AqSSiWYTE1NIS7AShAcxyKRCPNXr/5FXICVIInkU8InJycRF2AlKCPj7bW6tra2LQRBrYPJixcexBFYCVIodmPidrsRR2AQVFJSrNN9KRZ/gptwn4+Pj3d1PfB4POj/5FWF7SMjIyjcgmD7tLa27Nmjphrz8/fC99WrP4+NjUM6ERsbi+3Png0jjkBfBvF4PKdzgJp9BodMljk9PY24AP3leuvWL6GrAVRUVCCOQCMI9g7EDWn6fD6os/LyVAJBslb7RXl5BWTyAfWe0Xj50aOe4mIdChlQtl269GNcXFyAncZlNTV6g6EOc0ja1eq9AZUN4PFjG+0TAqivr2+4f98S5CaRyWQXL/6gVquoFRwBTVBTnWW1dm38DTiUqHG7R3m8GLFYjJuJiYkNDfXwGRwctNn+ghxtbu7diwys/YEDhZDjQsDBYm+cmV7Q7Ows4VCVQjUDBzFuCgRJzc1NhYWFZMCFC9/39fWdO3f21KmToIbYd78BooPD4Thx4qTX66XtpXFZQUGBxdJJms+fj5nNZiBZWVkB7xtm8x9Hjx7DHCqNI0e+On0aqnoJ2gTwftXY2AgJ/+rq6mZj6Lc9RGhubi4KCru9T6M5uNGenJys0RSB35VKZWRkJFhevvTCudXT0xtKoUgvCB4PursfUGuuAJhMJij8gvzR9wb9OQR5MaTotG4GD+p0xVBqhUMNYnywqqysVCrzYKOur69D8NpsNvAUCic4e2PkCjsP50zYEcSEbSfoPwAAAP//xwMPxQAAAAZJREFUAwDWaIge+sw4kwAAAABJRU5ErkJggg==">
+<style>
+  /* Renkler uygulamanın belirteçleri (`src/appearance.js`): açıkta nötr kâğıt, koyuda AMOLED siyahı.
+     Ton renkleri `src/core/tonRenk.js` VARSAYILAN, seviye renkleri `src/theme.js` LEVEL_COLORS(_DARK) —
+     denetim ton paletini kaynağıyla eşler; palet orada değişirse burası kırmızıya döner. */
+  :root {
+    color-scheme: light dark;
+    --zemin:#F5F5F3; --yuzey:#FFFFFF; --mur:#1D1D1B; --mur2:#555552; --mur3:#6C6C68;
+    --ayrac:#DDDDD8; --kil:#E7E7E3; --vurgu:#1D1D1F; --vurgu-ust:#FBFBF9; --basili:#F0F0ED;
+    --t1:#246DAE; --t2:#00794C; --t3:#CE006F; --t4:#864DC4; --t0:#6B677D;
+    --s1:#CF133F; --s2:#477628; --s3:#287865; --s4:#2F748C; --s5:#675CC9; --s6:#AA2BB3; --s7:#AE447A;
+    --golge: 0 6px 24px rgba(29,29,31,.06), 0 1px 3px rgba(29,29,31,.04);
+  }
+  @media (prefers-color-scheme: dark) { :root {
+    --zemin:#000000; --yuzey:#191919; --mur:rgba(255,255,255,.92); --mur2:rgba(255,255,255,.66); --mur3:rgba(255,255,255,.50);
+    --ayrac:rgba(255,255,255,.08); --kil:rgba(255,255,255,.10); --vurgu:#FFFFFF; --vurgu-ust:#000000; --basili:#202020;
+    --t1:#75B1E8; --t2:#53CE96; --t3:#F08BB7; --t4:#BD99F4; --t0:#ACA7C1;
+    --s1:#F09195; --s2:#73BF40; --s3:#42C0A2; --s4:#71B6D0; --s5:#ACA6E1; --s6:#DD89EA; --s7:#F08EBB;
+    --golge: none;
+  } }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--zemin); color: var(--mur);
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
+  }
+  /* Hanzi: `lang="zh-Hans"` + Çince yazı tipi sırası. Yoksa Japonca/Korece ayarlı cihaz
+     aynı kod noktasını kendi biçimiyle çizer (直 · 骨 · 画) — öğrenciye yanlış karakter. */
+  [lang="zh-Hans"] { font-family: "PingFang SC", "Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--mur); outline-offset: 2px; border-radius: 6px; }
+
+  .sayfa { max-width: 560px; margin: 0 auto; padding: 0 max(20px, env(safe-area-inset-right)) 40px max(20px, env(safe-area-inset-left)); min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+  .tepe { height: 64px; display: flex; align-items: center; }
+  .marka { display: inline-flex; color: var(--mur); padding: 8px 0; }
+  .marka svg { height: 26px; width: auto; display: block; fill: currentColor; }
+
+  /* ── deste başlığı: uygulamadaki deste sayfasının ölçüleri (`DesteDuzeni.js` ust/ad/say/calis) ── */
+  .ust { margin: 12px 0 2px; color: var(--mur3); font-size: 12px; line-height: 16px; letter-spacing: .8px; font-weight: 600; text-transform: uppercase; }
+  .ad { margin: 0; font-size: 28px; line-height: 36px; letter-spacing: -.3px; font-weight: 600; overflow-wrap: anywhere; }
+  .ad.uzun { font-size: 22px; line-height: 29px; letter-spacing: -.2px; }
+  .say { margin: 4px 0 0; color: var(--mur2); font-size: 13px; line-height: 18px; font-weight: 600; min-height: 18px; }
+  .eylem { margin-top: 20px; }
+  .dugme {
+    display: flex; align-items: center; justify-content: center; height: 52px; border-radius: 14px;
+    background: var(--vurgu); color: var(--vurgu-ust); font-size: 16px; font-weight: 600; letter-spacing: -.1px;
+    text-decoration: none; cursor: pointer; transition: opacity .12s;
+  }
+  .dugme:active { opacity: .78; }
+  .dugme.ikincil { background: transparent; color: var(--mur); box-shadow: inset 0 0 0 1px var(--mur3); margin-top: 10px; }
+  .yakinda { margin: 12px 0 0; text-align: center; color: var(--mur3); font-size: 13px; line-height: 18px; }
+  /* İpucu yer TUTMAZ, belirince açılır: kurulu olan kullanıcı onu hiç görmez. */
+  .ipucu { margin: 12px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--kil); color: var(--mur2); font-size: 14px; line-height: 20px; animation: belir .28s ease-out both; }
+  .ipucu b { color: var(--mur); font-weight: 600; }
+
+  /* ── liste: iOS gruplu liste — hanzi sütunu SABİT (84), ayraç metin sütununda başlar ── */
+  .bolum { margin: 28px 0 8px 16px; color: var(--mur2); font-size: 13px; line-height: 18px; font-weight: 600; }
+  .liste { list-style: none; margin: 28px 0 0; padding: 0; background: var(--yuzey); border-radius: 16px; box-shadow: var(--golge); overflow: hidden; }
+  .bolum + .liste { margin-top: 0; }
+  .satir { display: flex; align-items: center; gap: 12px; height: 72px; padding: 0 16px; text-decoration: none; position: relative; }
+  .satir:active { background: var(--basili); }
+  @media (hover: hover) { .satir:hover { background: var(--basili); } }
+  li + li .satir::before { content: ""; position: absolute; top: 0; right: 0; left: 112px; height: 1px; background: var(--ayrac); }
+  .hz { flex: none; width: 84px; font-size: 28px; line-height: 1.3; color: var(--mur); white-space: nowrap; }
+  /* `puntoSigdir(84, n, {tavan 28, taban 18})` ile aynı basamaklar; 5+ karakter uygulamada
+     kesilir, burada iki satıra bölünür — alıcı kelimenin TAMAMINI görsün. */
+  .hz.n3 { font-size: 24px; } .hz.n4 { font-size: 19px; }
+  .hz.n5 { font-size: 16px; white-space: normal; word-break: break-all; line-height: 1.25; text-wrap: balance; }
+  .metin { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+  .pin { display: block; height: 20px; line-height: 20px; font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .anlam { display: block; height: 22px; line-height: 22px; font-size: 15px; font-weight: 500; color: var(--mur); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .anlam.soluk { color: var(--mur3); font-weight: 400; }
+  .t0 { color: var(--t0); } .t1 { color: var(--t1); } .t2 { color: var(--t2); } .t3 { color: var(--t3); } .t4 { color: var(--t4); }
+  /* Sözlük gelene kadar metnin YERİNDE aynı boyda örtü: satır zıplamaz (uygulamanın `ortu`su). */
+  .bekler .pin, .bekler .anlam { border-radius: 4px; background: var(--kil); }
+  .bekler .pin { width: 52px; height: 10px; margin: 5px 0; }
+  .bekler .anlam { width: 128px; max-width: 70%; height: 10px; margin: 6px 0; }
+  .dolu .pin, .dolu .anlam, .dolu.kelime .okunus, .dolu.kelime .a1, .dolu.kelime .a2, .dolu.kelime .kunye { animation: belir .22s ease-out both; }
+  @keyframes belir { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: none; } }
+  .uyari { margin: 12px 4px 0; color: var(--mur2); font-size: 13px; line-height: 18px; }
+  .uyari button { font: inherit; color: var(--mur); font-weight: 600; background: none; border: 0; padding: 0 0 0 6px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+  /* ── kelime: kelime sayfasının düzeni — büyük hanzi, okunuş, anlam, künye ── */
+  .geri { display: inline-block; margin-top: 4px; padding: 6px 0; color: var(--mur2); font-size: 14px; font-weight: 600; text-decoration: none; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .kelime { text-align: center; padding-top: 28px; }
+  /* Punto karakter sayısından: tek satırda sığan en büyük boy, tavan 112. Uzun metin (cümle) sarar. */
+  .buyuk { margin: 0; font-weight: 400; line-height: 1.2; font-size: min(112px, calc((min(100vw, 560px) - 40px) * .92 / var(--n, 1))); overflow-wrap: anywhere; }
+  .buyuk.uzun { font-size: 28px; line-height: 1.45; }
+  .okunus { margin: 18px 0 0; min-height: 34px; font-size: 26px; line-height: 34px; font-weight: 700; }
+  .a1 { margin: 8px 0 0; min-height: 32px; font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -.2px; overflow-wrap: anywhere; }
+  .a2 { margin: 6px 0 0; color: var(--mur2); font-size: 15px; line-height: 22px; overflow-wrap: anywhere; }
+  .kunye { margin: 14px 0 0; min-height: 16px; font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--mur3); }
+  .s1 { color: var(--s1); } .s2 { color: var(--s2); } .s3 { color: var(--s3); } .s4 { color: var(--s4); } .s5 { color: var(--s5); } .s6 { color: var(--s6); } .s7 { color: var(--s7); }
+  .kelime.bekler .okunus, .kelime.bekler .a1 { width: 96px; min-height: 0; height: 12px; margin: 29px auto 11px; border-radius: 4px; background: var(--kil); }
+  .kelime.bekler .a1 { width: 168px; margin: 18px auto 10px; }
+  .kelime .eylem { margin-top: 28px; text-align: left; }
+  .kelime .bolum, .kelime .liste { text-align: left; }
+  .not { margin: 16px 0 0; color: var(--mur2); font-size: 15px; line-height: 22px; }
+
+  /* ── boş / geçersiz ── */
+  .bos { text-align: center; padding: 24px 0 56px; }
+  .bos .buyuk { font-size: 96px; color: var(--mur); }
+  .bos .okunus { margin-top: 10px; font-size: 20px; line-height: 26px; min-height: 0; }
+  .bos .kunye { margin-top: 2px; letter-spacing: .2px; text-transform: none; font-weight: 500; font-size: 14px; line-height: 20px; }
+  .bos h1 { margin: 36px 0 0; font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -.2px; }
+  .bos p.govde { margin: 10px auto 0; max-width: 400px; color: var(--mur2); font-size: 15px; line-height: 22px; }
+  .bag { display: inline-block; margin-top: 20px; font-size: 15px; font-weight: 600; text-underline-offset: 4px; }
+
+  /* ── tanıtım + dip ── */
+  .tanitim { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--ayrac); }
+  .tanitim p { margin: 0; color: var(--mur2); font-size: 15px; line-height: 22px; }
+  .tanitim b { color: var(--mur); font-weight: 600; }
+  .tanitim .bag { margin-top: 8px; }
+  .dip { margin-top: auto; padding-top: 40px; color: var(--mur3); font-size: 12px; line-height: 18px; }
+  .dip p { margin: 0 0 4px; }
+  .dip a { text-underline-offset: 3px; }
+
+  /* ── geniş ekran: başlık solda sabit, liste sağda akar — 200 kelimelik destede düğme hep görünür ── */
+  @media (min-width: 920px) {
+    .sayfa[data-gorunum="deste"] { max-width: 972px; }   /* 340 + 72 + 520 + iki kenar 20: işaret sol sütunla hizalı */
+    .sayfa[data-gorunum="deste"] #sahne { display: grid; grid-template-columns: 340px minmax(0, 520px); column-gap: 72px; justify-content: center; align-items: start; padding-top: 24px; }
+    .sayfa[data-gorunum="deste"] .bas { position: sticky; top: 40px; }
+    .sayfa[data-gorunum="deste"] .govde > .liste:first-child { margin-top: 12px; }
+    .kelime { padding-top: 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="sayfa" id="sayfa">
+  <header class="tepe">
+    <a class="marka" href="../index.html" aria-label="Lian">
+      <!-- Açılış perdesinin işareti (`data/acilis-isaret.js`: L + ian), kırpılmış görüş kutusuyla. -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="165 130 1494 733" role="img" aria-hidden="true"><path d="M528.1 474.5C521.3 538.3 512 607.1 496.8 669.4C505.5 675 516.5 680 525.8 684.8C590.5 718.6 666.8 743.1 740.5 733.4C778.2 728.4 801.5 715 834.1 697.3C841.2 693.4 848.4 689.5 855.7 685.9C858 684.7 861.7 682.1 864 684.5C866.6 687.1 862.5 690.6 860.8 692.4C854.9 699 848.9 705.5 842.9 711.9C817.3 739.6 792.6 765.3 756.7 779.3C687.7 806.1 610.7 799.1 543 772C525 764.8 508.1 755.2 491.2 745.9C485.3 742.6 479.4 739.1 473.3 736.1C458 767 437.6 795.1 409.4 815.5C386.3 832.2 360.4 845.2 332.2 850.6C309.9 854.8 289.5 855.4 267.2 850.8C249 847.1 231.5 838.7 217.2 826.8C186.4 801.2 168.9 758 174.2 718.3C176.2 703.7 181.4 689.7 188.5 676.9C195.2 664.8 204.1 653.9 213.9 644.3C245.7 612.8 281.8 603.6 325.6 607.3C353.7 609.7 381.9 616 408.3 625.9C416.1 628.8 423.5 632.7 431.2 635.5C453.4 556.4 462.8 452.7 470.2 370.1C474.9 318 474 275.1 497.3 226.2C503.2 213.7 510.2 201.6 518.8 190.8C527.3 180.3 537 170.8 548.2 163.2C595 131.6 661.1 131 707.8 162.9C724.5 174.3 738.1 189.2 746.8 207.5C752.3 219 755.6 231.7 756.7 244.5C757.6 254.9 757.3 265.5 755.7 275.9C754.2 285.9 752 296 748.3 305.4C733.5 343.2 698.4 368.2 667.5 392.1C644.9 409.6 623.3 428.9 598.8 443.7C576.6 457 552.5 466.1 528.1 474.5ZM403.9 703.1C395.1 699.6 386.1 696.6 376.9 694.3C355.7 689.1 325.2 685.9 304 691.1C299 692.3 294.5 694.3 290.1 696.7C278.8 702.7 264.5 715.9 261.8 728.9C261 732.9 261.6 736.9 262.7 740.8C269.6 764.9 287.8 766.8 309.6 766.7C351.1 766.4 383.9 737.1 403.9 703.1ZM536.6 393.5C565.7 380.7 590.6 361.6 614.6 340.9C629.3 328.2 644.6 314.7 655.2 298.3C662.9 286.4 675.2 255.6 665.7 242.7C662.8 238.8 658.8 235.9 654.5 233.6C632.5 221.4 601.1 227.9 583.8 245.6C576.2 253.4 570.1 262.5 565 272C550.9 298.1 546.2 324.3 542 353.3C540.1 366.7 538.2 380.1 536.6 393.5Z"/><path d="M903.2 424.6L903.2 347.4L970.3 347.4L970.3 424.6L903.2 424.6ZM903.2 790L903.2 468.6L970.3 468.6L970.3 790L903.2 790ZM1078.7 785.5Q1054.1 773.9 1040.4 753.4Q1026.8 732.9 1026.8 705Q1026.8 678.9 1038.3 658.1Q1049.9 637.3 1074.3 623Q1098.6 608.8 1135.5 602.8L1237.6 586L1237.6 573.7Q1237.6 550 1220.1 534.8Q1202.6 519.7 1173.5 519.7Q1146.8 519.7 1126.9 533.6Q1107 547.6 1097.4 569.6L1041.6 541.7Q1050.5 517.9 1070.7 499.8Q1090.9 481.7 1117.9 471.6Q1145 461.5 1175.3 461.5Q1213.3 461.5 1242.7 475.7Q1272.1 490 1288.4 515.2Q1304.8 540.5 1304.8 573.7L1304.8 790L1240.6 790L1240.6 752.7Q1233.7 760.7 1225.5 767.4Q1207.9 781.6 1185.7 789.4Q1163.4 797.1 1136.1 797.1Q1103.4 797.1 1078.7 785.5ZM1237.6 639L1148.5 654.5Q1121.8 659.3 1109.3 671.4Q1096.9 683.6 1096.9 702.6Q1096.9 721 1110.8 732.6Q1124.8 744.2 1146.8 744.2Q1174.1 744.2 1194.6 732.3Q1215.1 720.5 1226.3 700.6Q1237.6 680.7 1237.6 656.3L1237.6 639ZM1374.3 790L1374.3 468.6L1438.4 468.6L1438.4 507.5Q1449.8 488.6 1468.7 477.2Q1494.8 461.5 1529.3 461.5Q1564.9 461.5 1592.3 476.9Q1619.6 492.4 1635 519.7Q1650.5 547 1650.5 582.6L1650.5 790L1583.9 790L1583.9 600.5Q1583.9 576.1 1575 559.2Q1566.1 542.3 1549.8 533Q1533.4 523.8 1512.7 523.8Q1491.9 523.8 1475.5 533Q1459.2 542.3 1450.3 559.5Q1441.4 576.7 1441.4 600.5L1441.4 790L1374.3 790Z"/></svg>
+    </a>
+  </header>
+  <main id="sahne">
+    <noscript>
+      <div class="bos"><h1>Lian</h1><p class="govde">This page needs JavaScript to show the shared deck. · Paylaşılan desteyi göstermek için JavaScript gerekir.</p><a class="bag" href="../index.html">Lian →</a></div>
+    </noscript>
+  </main>
+  <footer class="dip" id="dip"></footer>
+</div>
+<script>
+'use strict';
+/* MAĞAZA ADRESİ — uygulama henüz yayında değil. Boşken sayfa sessiz bir "Yakında" yazar;
+   yayınlanınca buraya Play adresi yazılır (https://…) ve gerçek bir ikincil düğme olur. */
+const MAGAZA_URL = '';
+
+/* COZUCU-BAS
+ * Bu iki işaret arası SAF: DOM yok, ağ yok, dış değişken yok. `paylasim-sayfa-denetim`
+ * bu bloğu olduğu gibi çıkarır, Node'da koşturur ve uygulamanın çözücüleriyle karşılaştırır
+ * (`desteBaglantisiCoz` · `disSorguCoz`). Bir ucu değiştiren diğerini de değiştirir. */
+var SEMA = 'hanzidefteri';            // `app.json` scheme = `UYGULAMA_SEMASI`
+var PAYLASIM_TAVAN = 200;             // desteBaglantisi.js
+var AD_TAVAN = 40;                    // liste.js
+var SORGU_BOY = 120;                  // disSorgu.js DIS_SORGU_BOY
+var KELIME = /^[\u3400-\u9fff]{1,8}$/;
+var HANZI = /[\u3400-\u9fff\ud840-\ud87f]/;
+
+/* `liste.js` adTemizle: boşluk tek boşluk, kod noktasıyla 40 (emoji ortasından bölünmez). */
+function adTemizle(ad) {
+  var s = String(ad == null ? '' : ad).replace(/\s+/g, ' ').trim();
+  return Array.from(s).slice(0, AD_TAVAN).join('').trim();
+}
+/* `desteBaglantisi.js` adSuz (güvenlik incelemesi): denetim, sıfır genişlik ve yön (bidi)
+   karakterleri ÖNCE boşluğa iner. Yoksa görünmez karakterlerden bir ad "dolu" sayılır,
+   sıfır genişlik benzer adlar üretir, U+202E adı tersinden okutur ("a‹RLO›gnp.exe" → "exe.png").
+   Yalnız görünmezden oluşan ad boş ada, o da "Adsız deste"ye düşer. */
+var GORUNMEZ = /[\u0000-\u001f\u007f\u200b-\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g;
+function adSuz(ad) { return adTemizle(String(ad == null ? '' : ad).replace(GORUNMEZ, ' ')); }
+/* Sıra korunur, yinelenen ve hanzi olmayan atılır, tavanda durur. */
+function kelimeleriSuz(hler) {
+  var gorulen = {}, out = [];
+  for (var i = 0; i < hler.length && out.length < PAYLASIM_TAVAN; i++) {
+    var h = hler[i];
+    if (typeof h !== 'string' || !KELIME.test(h) || gorulen[h] === 1) continue;
+    gorulen[h] = 1; out.push(h);
+  }
+  return out;
+}
+function param(s, ad) { var m = new RegExp('[?&#]' + ad + '=([^&#]*)').exec(s); return m ? m[1] : ''; }
+
+/* Parça (`#d=…&a=…`) → deste. Bozuk ya da kelimesiz → null. FIRLATMAZ.
+   `escape`/`decodeURIComponent` çifti uygulamanınkiyle AYNI UTF-8 çözücü: `TextDecoder`
+   baştaki BOM'u sessizce yutar, iki uç o tek girdide ayrışırdı. */
+function desteCoz(parca) {
+  if (typeof parca !== 'string' || parca.length > 8000) return null;
+  var d = param(parca, 'd');
+  if (!d || !/^[A-Za-z0-9_-]+$/.test(d)) return null;
+  var hler;
+  try { hler = kelimeleriSuz(decodeURIComponent(escape(atob(d.replace(/-/g, '+').replace(/_/g, '/')))).split(',')); }
+  catch (e) { return null; }
+  if (!hler.length) return null;
+  var ad = '';
+  try { ad = adSuz(decodeURIComponent(param(parca, 'a').replace(/\+/g, ' '))); } catch (e) { ad = ''; }
+  return { tur: 'deste', ad: ad, hler: hler, d: d };
+}
+
+/* `disSorgu.js` disMetinTemizle: adres ve denetim karakterleri atılır, ilk hanziden son
+   hanziye kadar olan parça alınır, 120 kod noktasında kesilir. */
+function metinTemizle(ham) {
+  var s = String(ham).slice(0, 4000)
+    .replace(/https?:\/\/\S+/gi, ' ')
+    .replace(/[\u0000-\u001f\u007f\u200b-\u200f\u2028\u2029\ufeff]/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+  var k = Array.from(s), a = 0, b = k.length - 1;
+  if (HANZI.test(s)) {
+    while (!HANZI.test(k[a])) a++;
+    while (!HANZI.test(k[b])) b--;
+    k = k.slice(a, b + 1);
+  }
+  return k.slice(0, SORGU_BOY).join('').trim();
+}
+/* Parça (`#ara=…`) → kelime. ⚠ Uygulamadan DAR: içinde hanzi olmayan metin burada
+   geçersiz — bu sayfa Çince sözlük gösterir, Latin metne gösterecek bir şeyi yok. */
+function kelimeCoz(parca) {
+  if (typeof parca !== 'string' || parca.length > 8000) return null;
+  var m = /[?&#]ara=([^&#]*)/.exec(parca);
+  if (!m) return null;
+  var metin;
+  try { metin = metinTemizle(decodeURIComponent(m[1].replace(/\+/g, ' '))); } catch (e) { return null; }
+  return metin && HANZI.test(metin) ? { tur: 'kelime', metin: metin } : null;
+}
+function parcaCoz(parca) { return desteCoz(parca) || kelimeCoz(parca); }
+
+/* "Lian'da aç"ın gittiği adres. `d` süzgeçten geçmiş ham değer (yalnız [A-Za-z0-9_-]),
+   ad TEMİZLENMİŞ hâlinden yeniden kodlanır — ham parça uygulamaya taşınmaz.
+   ⚠ `t` ZORUNLU: uygulama damgası eski isteği "çoktan cevaplandı" sayıp atar
+   (`disSorguTaze`); damga dokunuş anında basılır, sayfa açılışında değil. */
+function uygulamaBaglantisi(durum, simdi) {
+  if (!durum) return null;
+  if (durum.tur === 'deste') {
+    return SEMA + '://deste?d=' + durum.d + (durum.ad ? '&a=' + encodeURIComponent(durum.ad) : '') + '&t=' + simdi;
+  }
+  return SEMA + '://ara?q=' + encodeURIComponent(durum.metin) + '&t=' + simdi;
+}
+
+/* Hecenin tonu: ilk ton işareti (`components/Pinyin.js` toneOf); işaretsiz = hafif ton, 0. */
+var TON = { 'ā': 1, 'á': 2, 'ǎ': 3, 'à': 4, 'ē': 1, 'é': 2, 'ě': 3, 'è': 4, 'ī': 1, 'í': 2, 'ǐ': 3, 'ì': 4,
+  'ō': 1, 'ó': 2, 'ǒ': 3, 'ò': 4, 'ū': 1, 'ú': 2, 'ǔ': 3, 'ù': 4, 'ǖ': 1, 'ǘ': 2, 'ǚ': 3, 'ǜ': 4, 'ń': 2, 'ň': 3, 'ǹ': 4 };
+function heceTonu(hece) {
+  var s = String(hece).toLowerCase();
+  for (var i = 0; i < s.length; i++) if (TON[s[i]]) return TON[s[i]];
+  return 0;
+}
+/* Deste özeti için seviye aralığı: 1–6 = HSK n, 7 = HSK 7–9, 0 sayılmaz. '' = seviyeli kelime yok. */
+function seviyeAraligi(seviyeler) {
+  var en = 9, cok = 0;
+  for (var i = 0; i < seviyeler.length; i++) { var s = seviyeler[i]; if (s > 0) { if (s < en) en = s; if (s > cok) cok = s; } }
+  if (!cok) return '';
+  var son = cok === 7 ? '9' : String(cok);
+  return 'HSK ' + (en === cok ? (cok === 7 ? '7–9' : son) : en + '–' + son);
+}
+/* COZUCU-SON */
+
+/* ── dil: Türkçe tarayıcıya Türkçe, herkese İngilizce (anlamlar da) ── */
+var TR = /^tr\b/i.test(navigator.language || '');
+var M = TR ? {
+  desteUst: 'Paylaşılan deste', adsiz: 'Adsız deste', kelime: function (n) { return n + ' kelime'; },
+  ac: 'Lian’da aç', yakinda: 'Yakında Google Play’de', indir: 'Google Play’den indir',
+  ipucu: ['Açılmadıysa ', 'Lian bu cihazda kurulu değil.', ' Kurduğunda bu bağlantı doğrudan uygulamada açılır.'],
+  yok: 'web sözlüğünde yok', kelimeYok: 'Bu kelime web sözlüğünde yok; Lian’da arayabilirsin.',
+  metinNot: 'Lian bu metni kelimelerine ayırır; her birinin okunuşuna ve anlamına uygulamada bakabilirsin.',
+  yuklenemedi: 'Okunuşlar ve anlamlar yüklenemedi.', yeniden: 'Yeniden dene', karakterler: 'Karakterler', paylasilan: 'Paylaşılan kelime',
+  bosBaslik: 'Bu bağlantı eksik görünüyor',
+  bosGovde: 'Lian’dan paylaşılan desteler ve kelimeler burada açılır. Bağlantının tamamını kopyaladığından emin ol: # işaretinden sonrası içeriği taşır.',
+  bosAnlam: 'boş', nedir: 'Lian nedir? →',
+  tanitim: ['Lian', ', Çince öğrenenler için sözlük, kılavuz ve defter. Kelimeye bakarsın, sırada ne olduğunu görürsün, öğrendiklerin tek yerde durur.'],
+  gizlilik: 'İçerik bağlantının kendisinde taşınır (# sonrası) ve hiçbir sunucuya gönderilmez.',
+  atif: 'İngilizce anlamlar CC-CEDICT’ten türetildi (CC BY-SA 4.0). ', kaynak: 'Kaynaklar ve lisanslar',
+  baslik: 'Paylaşılan deste'
+} : {
+  desteUst: 'Shared deck', adsiz: 'Untitled deck', kelime: function (n) { return n + (n === 1 ? ' word' : ' words'); },
+  ac: 'Open in Lian', yakinda: 'Coming soon to Google Play', indir: 'Get it on Google Play',
+  ipucu: ['If nothing opened, ', 'Lian isn’t installed on this device.', ' Once it is, this link opens straight in the app.'],
+  yok: 'not in the web dictionary', kelimeYok: 'This word isn’t in the web dictionary; you can look it up in Lian.',
+  metinNot: 'Lian splits this text into its words, so you can look up the pinyin and meaning of each one in the app.',
+  yuklenemedi: 'Couldn’t load pinyin and meanings.', yeniden: 'Try again', karakterler: 'Characters', paylasilan: 'Shared word',
+  bosBaslik: 'This link looks incomplete',
+  bosGovde: 'Decks and words shared from Lian open here. Make sure you copied the whole link: everything after the # carries the content.',
+  bosAnlam: 'empty', nedir: 'What is Lian? →',
+  tanitim: ['Lian', ' is a dictionary, a guide and a notebook for people learning Chinese. Look up a word, see what to study next, and keep what you’ve learned in one place.'],
+  gizlilik: 'The content travels inside the link itself (after the #) and is never sent to any server.',
+  atif: 'English meanings are derived from CC-CEDICT (CC BY-SA 4.0). ', kaynak: 'Sources and licences',
+  baslik: 'Shared deck'
+};
+var KAYNAK_URL = 'https://github.com/furkanbali32/chinese-veri/blob/HEAD/NOTICE';
+
+/* ── DOM: yalnız createElement + textContent. Kullanıcı verisi HİÇBİR yerde HTML olarak yazılmaz. ── */
+function el(etiket, sinif, metin) {
+  var e = document.createElement(etiket);
+  if (sinif) e.className = sinif;
+  if (metin != null) e.textContent = metin;
+  return e;
+}
+function ekle(ust) { for (var i = 1; i < arguments.length; i++) if (arguments[i]) ust.appendChild(arguments[i]); return ust; }
+function hanzi(etiket, sinif, metin) { var e = el(etiket, sinif, metin); e.lang = 'zh-Hans'; return e; }
+function kacKarakter(s) { return Array.from(s).length; }
+
+/* ── sözlük: dil başına İKİ KAT, ikisi de tembel (üreteç `scripts/site-sozluk.mjs`).
+   1. kat HSK 1–6 — paylaşılan destelerin çoğu yalnız bunu ister. 2. kat geri kalan her şey
+   (HSK 7–9, seviyesiz, yalnız aramada duran kayıtlar) ve YALNIZ ekrandaki bir kelime 1. katta
+   çözülmediyse istenir: sık durumda telefon büyük dosyayı hiç indirmez. Boş/geçersiz
+   bağlantıda hiçbiri istenmez. ── */
+var sozluk = {}, katIstek = {};
+function katAl(kat) {
+  if (!katIstek[kat]) {
+    katIstek[kat] = fetch((TR ? 'sozluk-tr-' : 'sozluk-en-') + kat + '.json').then(function (r) {
+      if (!r.ok) throw new Error(String(r.status));
+      return r.json();
+    }).then(function (s) { for (var h in s) if (Object.prototype.hasOwnProperty.call(s, h)) sozluk[h] = s[h]; });
+    /* Başarısız istek saklanmaz: "Yeniden dene" gerçekten yeniden dener. */
+    katIstek[kat].catch(function () { katIstek[kat] = null; });
+  }
+  return katIstek[kat];
+}
+/* Kayıt: [okunuş, anlam, seviye]. O dilde anlamı olmayan kayda öbür dilinki üreteçte yazıldı. */
+function kayitAl(h) { return Object.prototype.hasOwnProperty.call(sozluk, h) ? sozluk[h] : null; }
+function anlamAl(k) { return k[1] || ''; }
+function okunusYaz(kap, p) {
+  var heceler = String(p).trim().split(/\s+/);
+  kap.textContent = '';
+  for (var i = 0; i < heceler.length; i++) {
+    if (i) kap.appendChild(document.createTextNode(' '));
+    kap.appendChild(el('span', 't' + heceTonu(heceler[i]), heceler[i]));
+  }
+}
+
+/* ── "Lian'da aç" + kurulu değil ipucu ── */
+var durum = null, ipucuSayac = 0;
+function kurKutusu() {
+  /* Yalnız https: yanlış yapıştırılmış bir değer (javascript:, boşluk) düğmeye dönüşmesin. */
+  if (/^https:\/\//.test(MAGAZA_URL)) {
+    var a = el('a', 'dugme ikincil', M.indir); a.href = MAGAZA_URL; a.rel = 'noopener'; a.id = 'kur';
+    return a;
+  }
+  var p = el('p', 'yakinda', M.yakinda); p.id = 'kur';
+  return p;
+}
+function eylem() {
+  var kap = el('div', 'eylem');
+  var a = el('a', 'dugme', M.ac); a.id = 'ac';
+  a.href = uygulamaBaglantisi(durum, Date.now());
+  var ipucu = el('p', 'ipucu'); ipucu.id = 'ipucu'; ipucu.hidden = true; ipucu.setAttribute('role', 'status');
+  ekle(ipucu, document.createTextNode(M.ipucu[0]), el('b', '', M.ipucu[1]), document.createTextNode(M.ipucu[2]));
+  a.addEventListener('click', function () {
+    /* Damga DOKUNUŞ anında: sayfa bir saat açık kaldıysa açılıştaki damga bayattır ve
+       uygulama isteği atar. `href` dinleyiciden sonra okunur, gezinme yeni adrese gider. */
+    a.href = uygulamaBaglantisi(durum, Date.now());
+    /* Uygulama açılırsa sayfa arka plana düşer; ~1,5 sn sonra hâlâ görünürse açılmamıştır.
+       Tarayıcı "kurulu mu" sorusuna cevap vermez; bu yüzden metin de koşullu ("Açılmadıysa"). */
+    var benim = ++ipucuSayac;
+    setTimeout(function () {
+      if (benim === ipucuSayac && document.visibilityState === 'visible') ipucu.hidden = false;
+    }, 1500);
+  });
+  return ekle(kap, a, ipucu, kurKutusu());
+}
+document.addEventListener('visibilitychange', function () { if (document.visibilityState !== 'visible') ipucuSayac++; });
+
+/* ── satır: deste listesi ve kelimenin karakterleri aynı satırı kullanır ── */
+function satir(h) {
+  var li = el('li'), a = el('a', 'satir bekler');
+  /* Satır kelime görünümüne gider: alıcı tek kelimeyi büyük görür, tam anlamını okur ve o
+     kelimeyi Lian'da açabilir; tarayıcının geri tuşu desteye döner (parça değişimi = geçmiş kaydı). */
+  a.href = '#ara=' + encodeURIComponent(h);
+  var n = kacKarakter(h);
+  var hz = hanzi('span', 'hz' + (n >= 5 ? ' n5' : n >= 3 ? ' n' + n : ''), h);
+  var pin = el('span', 'pin'), an = el('span', 'anlam');
+  ekle(li, ekle(a, hz, ekle(el('span', 'metin'), pin, an)));
+  return { li: li, a: a, h: h, pin: pin, an: an };
+}
+/* durum: 'bekle' (1. kat geldi, 2. kat yolda) · 'tamam' · 'hata'. Kaydı gelen satır HER durumda
+   dolar; gelmeyen beklerken örtülü kalır, bitince "sözlükte yok", hatada boş. */
+function satirDoldur(s, durum) {
+  var k = kayitAl(s.h);
+  if (!k && durum === 'bekle') return;
+  s.a.className = 'satir dolu';
+  if (k) { okunusYaz(s.pin, k[0]); s.an.textContent = anlamAl(k); s.an.className = 'anlam'; s.an.title = anlamAl(k); }
+  else { s.pin.textContent = ''; s.an.textContent = durum === 'tamam' ? M.yok : ''; s.an.className = 'anlam soluk'; }
+}
+function listeKur(hler) {
+  var ol = el('ol', 'liste'), satirlar = [];
+  for (var i = 0; i < hler.length; i++) { var s = satir(hler[i]); satirlar.push(s); ol.appendChild(s.li); }
+  return { ol: ol, satirlar: satirlar };
+}
+/* Sözlüğü bekleyen görünüm. `gereken`: ekranda çözülmesi beklenen kelimeler.
+   1. kat gelince `doldur('bekle' | 'tamam')`; eksik kalan varsa — ve YALNIZ o zaman — 2. kat
+   istenir, gelince `doldur('tamam')`. Hangi kat düşerse düşsün `doldur('hata')` eldeki kayıtları
+   yine yazar (1. katın verisi kaybolmaz) ve "Yeniden dene" kaldığı kattan sürer. */
+function sozlukBagla(kap, gereken, doldur) {
+  function eksik() { for (var i = 0; i < gereken.length; i++) if (!kayitAl(gereken[i])) return true; return false; }
+  (function dene() {
+    katAl(1).then(function () {
+      doldur(eksik() ? 'bekle' : 'tamam');
+      if (!eksik()) return null;
+      return katAl(2).then(function () { doldur('tamam'); });
+    }).catch(function () {
+      doldur('hata');
+      var uyari = el('p', 'uyari', M.yuklenemedi); uyari.id = 'uyari';
+      var b = el('button', '', M.yeniden); b.type = 'button';
+      b.addEventListener('click', function () { kap.removeChild(uyari); dene(); });
+      kap.appendChild(ekle(uyari, b));
+    });
+  })();
+}
+
+/* ── üç görünüm ── */
+function desteCiz(d) {
+  var bas = el('section', 'bas'), say = el('p', 'say', M.kelime(d.hler.length));
+  /* 24 kod noktasını aşan ad telefonda 28 puntoda üç satıra yayılıp başlığı ağırlaştırıyordu. */
+  var ad = el('h1', 'ad' + (kacKarakter(d.ad) > 24 ? ' uzun' : ''), d.ad || M.adsiz);
+  ekle(bas, el('p', 'ust', M.desteUst), ad, say, eylem());
+  var l = listeKur(d.hler), govde = el('div', 'govde');
+  ekle(govde, l.ol);
+  sozlukBagla(govde, d.hler, function (durum) {
+    var sv = [];
+    for (var i = 0; i < l.satirlar.length; i++) {
+      satirDoldur(l.satirlar[i], durum);
+      var k = kayitAl(l.satirlar[i].h);
+      if (k) sv.push(k[2]);
+    }
+    var aralik = seviyeAraligi(sv);
+    say.textContent = M.kelime(d.hler.length) + (aralik ? ' · ' + aralik : '');
+  });
+  ekle(govde, tanitim());
+  var kok = document.createDocumentFragment();
+  return ekle(kok, bas, govde);
+}
+
+function kelimeCiz(k, geriDeste) {
+  var kok = el('section', 'kelime bekler');
+  var n = kacKarakter(k.metin);
+  var buyuk = hanzi('h1', 'buyuk' + (n > 8 ? ' uzun' : ''), k.metin);
+  buyuk.style.setProperty('--n', String(Math.max(n, 2)));   // tek karakter iki karakter kadar yer tutar: 112 tavanı zaten keser
+  var okunus = el('p', 'okunus'), a1 = el('p', 'a1'), a2 = el('p', 'a2'), kunye = el('p', 'kunye');
+  ekle(kok, buyuk, okunus, a1, a2, kunye, eylem());
+  /* Çok karakterli kelimenin karakterleri: her biri kendi satırı, kendi sayfasına gider.
+     Liste hemen kurulur (hanzi önce), satırlar sözlük geldikçe dolar. */
+  var tekler = n > 1 ? kelimeleriSuz(Array.from(k.metin)) : [], l = null;
+  if (tekler.length > 1) { l = listeKur(tekler); ekle(kok, el('p', 'bolum', M.karakterler), l.ol); }
+  /* Cümle ya da öbek sözlük kaydı DEĞİLDİR: onu aramak için 2. kat istenmez, notu da beklemez. */
+  var tekKelime = KELIME.test(k.metin);
+  sozlukBagla(kok, (tekKelime ? [k.metin] : []).concat(l ? tekler : []), function (durum) {
+    var kayit = kayitAl(k.metin);
+    if (kayit || durum !== 'bekle' || !tekKelime) kok.className = 'kelime dolu';
+    if (kayit) {
+      okunusYaz(okunus, kayit[0]);
+      /* Sözlükte gruplar `;` ile ayrılır ve ilki en sık anlamdır (docs/99 §5): ilki başlık,
+         kalanı sakin bir alt satır — uygulamanın kelime sayfasıyla aynı iki kat (docs/106 §3). */
+      var g = anlamAl(kayit).split(/;\s*/);
+      a1.textContent = g[0]; a2.textContent = g.slice(1).join('; ');
+      if (kayit[2]) { kunye.textContent = seviyeAraligi([kayit[2]]); kunye.className = 'kunye s' + kayit[2]; }
+    } else if (durum === 'tamam' || (durum === 'bekle' && !tekKelime)) {
+      /* Sözlük kaydı olmayan metin: tek kelimeyse "sözlükte yok"; cümle ya da öbekse kelime
+         DEĞİLDİR — uygulama onu kelimelerine ayırır, not bunu söyler. Boş satırlar yer tutmasın. */
+      a1.hidden = true; okunus.hidden = true; kunye.hidden = true;
+      a2.textContent = tekKelime ? M.kelimeYok : M.metinNot; a2.className = 'not';
+    }
+    if (l) for (var i = 0; i < l.satirlar.length; i++) satirDoldur(l.satirlar[i], durum);
+  });
+  var cerceve = document.createDocumentFragment();
+  if (geriDeste) {
+    var geri = el('a', 'geri', '‹ ' + (geriDeste.ad || M.adsiz)); geri.href = geriDeste.parca; geri.id = 'geri';
+    cerceve.appendChild(geri);
+  }
+  return ekle(cerceve, kok, tanitim());
+}
+
+function bosCiz() {
+  var kok = el('section', 'bos');
+  /* Süs değil küçük bir sözlük kaydı: 空 "boş". Yanlış bağlantıyla gelen de bir kelime görsün. */
+  var ok = el('p', 'okunus'); okunusYaz(ok, 'kōng');
+  var bag = el('a', 'bag', M.nedir); bag.href = '../index.html';
+  var b = el('h1', '', M.bosBaslik);
+  return ekle(kok, hanzi('p', 'buyuk', '空'), ok, el('p', 'kunye', M.bosAnlam), b, el('p', 'govde', M.bosGovde), bag);
+}
+
+function tanitim() {
+  var kap = el('aside', 'tanitim'), p = el('p');
+  ekle(p, el('b', '', M.tanitim[0]), document.createTextNode(M.tanitim[1]));
+  var bag = el('a', 'bag', M.nedir); bag.href = '../index.html';
+  return ekle(kap, p, bag);
+}
+
+/* ── yönlendirme: parça değişince yeniden çiz ── */
+var sayfa = document.getElementById('sayfa'), sahne = document.getElementById('sahne');
+/* Son deste saklanır: kelimeye girip geri dönen 200 kelimelik listeyi baştan kurmasın,
+   kaldığı satıra dönsün. Tarayıcının kendi kaydırma hatırlaması burada işlemez — geri
+   dönüldüğü anda sayfa henüz kelime görünümünün boyundadır. */
+var sonDeste = null;
+try { history.scrollRestoration = 'manual'; } catch (e) { /* eski tarayıcı: baştan başlar */ }
+
+function ciz() {
+  var parca = location.hash || '';
+  if (durum && durum.tur === 'deste' && sonDeste) sonDeste.kay = window.pageYOffset;
+  ipucuSayac++;
+  durum = parcaCoz(parca);
+  var tur = durum ? durum.tur : 'bos';
+  /* Görünüm sınıfla değil öznitelikle: `.kelime` içeriğin sınıfı, kabuğa bulaşmasın. */
+  sayfa.setAttribute('data-gorunum', tur);
+  while (sahne.firstChild) sahne.removeChild(sahne.firstChild);
+  var kay = 0;
+  if (tur === 'deste') {
+    if (sonDeste && sonDeste.parca === parca) {
+      kay = sonDeste.kay;
+      var ipucu = sonDeste.dugum.querySelector('#ipucu'); if (ipucu) ipucu.hidden = true;
+    } else {
+      var kap = el('div'); kap.style.display = 'contents';
+      kap.appendChild(desteCiz(durum));
+      sonDeste = { parca: parca, ad: durum.ad, dugum: kap, kay: 0 };
+    }
+    sahne.appendChild(sonDeste.dugum);
+    document.title = (durum.ad || M.adsiz) + ' · Lian';
+  } else if (tur === 'kelime') {
+    sahne.appendChild(kelimeCiz(durum, sonDeste));
+    document.title = durum.metin + ' · Lian';
+  } else {
+    sahne.appendChild(bosCiz());
+    document.title = 'Lian';
+  }
+  window.scrollTo(0, kay);
+}
+
+(function dipYaz() {
+  var dip = document.getElementById('dip');
+  var a = el('a', '', M.kaynak); a.href = KAYNAK_URL; a.rel = 'noopener';
+  ekle(dip, el('p', '', M.gizlilik), ekle(el('p', '', M.atif), a));
+})();
+document.documentElement.lang = TR ? 'tr' : 'en';
+window.addEventListener('hashchange', ciz);
+ciz();
+</script>
+</body>
+</html>

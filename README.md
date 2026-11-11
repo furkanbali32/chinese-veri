@@ -13,6 +13,7 @@ lisans metinleri: [licenses/](licenses/)
 | `veri/strokes.js` | 1.187 karakterin vuruş verisi (SVG yolları + medians) | Arphic Public License |
 | `veri/en.js` | 6.116 kelimenin İngilizce anlamı | CC BY-SA 4.0 (+ 582 kayıt LGPL 3.0) |
 | `veri/grammar.js` | 311 gramer kalıbı (HSK 1-4), 3.662 örnek cümle | CC BY-NC-SA 3.0 — **ticari kullanım yok** |
+| `ac/sozluk-tr-1.json` · `-tr-2` · `-en-1` · `-en-2` | paylaşım sayfasının sözlüğü, dil başına iki kat (1: HSK 1–6 · 2: geri kalan): 23.187 kayıt (pinyin · anlam · HSK seviyesi) | CC BY-SA 4.0 (İngilizce anlamlar `veri/en.js` ile aynı kaynaklardan) |
 
 ---
 
@@ -62,6 +63,17 @@ Yapılan değişiklikler:
 4. **Alt kümeleme.** Yalnız uygulamanın sözlüğündeki 6.116 kelime.
 
 Anlamlar İngilizce'den İngilizce'ye alındı; çeviri yapılmadı.
+
+### `ac/sozluk-<dil>-<kat>.json` — 2026-11-11
+
+Paylaşılan deste ve kelime bağlantılarının web sayfası (`ac/index.html`,
+kaynağı ana depoda `site/ac/`) okuyanın dilindeki dosyayı okur. Ana depodaki
+`scripts/site-sozluk.mjs` üretir: uygulamanın sözlüğünden üç sütun
+(pinyin, o dildeki anlam, HSK seviyesi) seçilir, tek satırlık JSON'a
+yazılır, anahtarlar kod noktası sırasına dizilir ve kayıtlar seviyeye göre
+iki dosyaya bölünür (1: HSK 1–6 · 2: geri kalan). Anlam metinleri
+değiştirilmedi. İngilizce anlamlar CC-CEDICT türevidir (CC BY-SA 4.0).
+`ac/kapak.png` bağlantı önizleme görselidir (uygulamanın mağaza görseli).
 
 ### `veri/grammar.js` — 2026-07-18 / 2026-07-20, atıf 2026-09-16
 
